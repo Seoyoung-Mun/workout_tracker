@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 =================
 git branch -M main
-git remote add origin https://github.com/Young-Geun/flutter_practice.gitt
+git remote add origin https://github.com/Seoyoung-Mun/workout_tracker.git
 git push -u origin main
 =================
 git branch
