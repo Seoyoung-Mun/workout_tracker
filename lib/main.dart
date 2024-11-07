@@ -39,7 +39,8 @@ class LandingPage extends StatelessWidget {
                 color: Colors.green[100],
                 child: Text(
                   '남들이 그만둘 때, 난 계속한다.',
-                  style: TextStyle(fontSize: 25),
+                  style:
+                      TextStyle(fontSize: 25, fontFamily: "NanumBrushScript"),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -53,23 +54,28 @@ class LandingPage extends StatelessWidget {
               Container(
                 child: Text(
                   '환영합니다.',
-                  style: TextStyle(
-                    fontSize: 35,
-                  ),
-                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 35),
+                  // textAlign: TextAlign.center,
                 ),
               ),
-              Container(
-                color: Colors.white,
-                width: 100,
-                height: 30,
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              // Container(
+              //   color: Colors.white,
+              //   width: 100,
+              //   height: 30,
+              //   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              //   child: Text(
+              //     'START',
+              //     style: TextStyle(fontSize: 25, color: Colors.purple),
+              //     textAlign: TextAlign.center,
+              //   ),
+              // ),
+              ElevatedButton(
+                onPressed: () {} /*콜백함수를 통해서 클릭함수 발생*/,
                 child: Text(
                   'START',
-                  style: TextStyle(fontSize: 25, color: Colors.purple),
-                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 25, fontFamily: "Jua"),
                 ),
-              ),
+              )
             ])));
   }
 }
