@@ -18,7 +18,7 @@ class WorkoutGuidePage extends StatelessWidget {
 
             ],
           ),
-          Text('30분', style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: Colors.blue)),
+          Text('30분', style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: Theme.of(context).colorScheme.secondary)),
           IconButton(onPressed: (){}, icon: Icon(Icons.play_circle_fill))
         ],
       )
