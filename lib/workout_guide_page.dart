@@ -24,7 +24,8 @@ class WorkoutGuidePage extends StatelessWidget {
             IconButton(
               onPressed: () {},
               icon: Icon(Icons.play_circle_fill),
-              iconSize: Theme.of(context).textTheme.headlineLarge?.fontSize,
+              iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,
+              color: Theme.of(context).colorScheme.primary,
             )
           ],
         ));
