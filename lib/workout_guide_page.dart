@@ -14,7 +14,20 @@ class WorkoutGuidePage extends StatelessWidget {
           children: [
             Text('스쿼트', style: Theme.of(context).textTheme.displaySmall),
             Row(
-              children: [],
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.arrow_back_ios),
+                  iconSize: Theme.of(context).textTheme.displayLarge?.fontSize,
+                ),
+                // Image(image: AssetImage('assets/squat.jpeg'),),
+                Image.asset('assets/squat.jpeg'),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.arrow_forward_ios),
+                  iconSize: Theme.of(context).textTheme.displayLarge?.fontSize,
+                ),
+              ],
             ),
             Text('30분',
                 style: Theme.of(context)
