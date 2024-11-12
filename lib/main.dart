@@ -1,6 +1,9 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+
 import 'package:workout_tracker/landing_page.dart';
 import 'package:workout_tracker/workout_list_page.dart';
+import 'package:workout_tracker/workout_guide_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,10 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // home: LandingPage(),
-        home: WorkoutListPage(),
+      // home: LandingPage(),
+      // home: WorkoutListPage(),
+
+      theme: FlexThemeData.light(scheme: FlexScheme.redWine),
+      home: WorkoutGuidePage(),
     );
   }
 }
-
-
