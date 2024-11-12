@@ -11,8 +11,10 @@ class WorkoutGuidePage extends StatelessWidget {
           centerTitle: true,
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text('스쿼트', style: Theme.of(context).textTheme.displaySmall),
+
             Row(
               children: [
                 IconButton(
@@ -21,7 +23,8 @@ class WorkoutGuidePage extends StatelessWidget {
                   iconSize: Theme.of(context).textTheme.displayLarge?.fontSize,
                 ),
                 // Image(image: AssetImage('assets/squat.jpeg'),),
-                Image.asset('assets/squat.jpeg'),
+                Expanded(
+                    child: Image.asset('assets/squat.jpeg')),
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.arrow_forward_ios),
@@ -29,11 +32,13 @@ class WorkoutGuidePage extends StatelessWidget {
                 ),
               ],
             ),
+
             Text('30분',
                 style: Theme.of(context)
                     .textTheme
                     .headlineLarge
                     ?.copyWith(color: Theme.of(context).colorScheme.secondary)),
+
             IconButton(
               onPressed: () {},
               icon: Icon(Icons.play_circle_fill),
