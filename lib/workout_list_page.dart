@@ -83,8 +83,7 @@ class WorkoutListPage extends StatelessWidget {
           title: Text('WorkoutList'),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-            child: Column(
+        body: ListView (
           children:
               // [
               getWorkoutList(),
@@ -162,6 +161,6 @@ class WorkoutListPage extends StatelessWidget {
           //   ],
           // ),
           // ],
-        )));
+        ));
   }
 }
