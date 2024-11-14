@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class WorkoutGuidePage extends StatelessWidget {
-  const WorkoutGuidePage({super.key});
+  WorkoutGuidePage({super.key});
+  final palyer = AudioPlayer();
 
   @override
   Widget build(BuildContext context) {
