@@ -11,10 +11,10 @@ class WorkoutGuidePage extends StatefulWidget {
 class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
   final player = AudioPlayer();
 
-  IconButton getIconButton(){
-    if(player.state == PlayerState.playing){
+  IconButton getIconButton() {
+    if (player.state == PlayerState.playing) {
       return IconButton(
-        onPressed: () async{
+        onPressed: () async {
           await player.stop();
           setState(() {});
         },
@@ -22,20 +22,19 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
         iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,
         color: Theme.of(context).colorScheme.primary,
       );
-    } else{
+    } else {
       return IconButton(
         onPressed: () async {
-          await player.play(AssetSource('sounds/squat.mp3'));
+          await player.play(AssetSource('squat.mp3'));
           setState(() {});
         },
         icon: Icon(Icons.play_circle_fill),
         iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,
         color: Theme.of(context).colorScheme.primary,
-    );
+      );
     }
-
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
