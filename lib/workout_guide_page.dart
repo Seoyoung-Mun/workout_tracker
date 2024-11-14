@@ -11,26 +11,69 @@ class WorkoutGuidePage extends StatefulWidget {
 class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
   final player = AudioPlayer();
 
-  IconButton getIconButton() {
+  Row getIconButton() {
     if (player.state == PlayerState.playing) {
-      return IconButton(
-        onPressed: () async {
-          await player.stop();
-          setState(() {});
-        },
-        icon: Icon(Icons.stop_circle),
-        iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,
-        color: Theme.of(context).colorScheme.primary,
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            onPressed: () async {
+              await player.pause();
+              setState(() {});
+            },
+            icon: Icon(Icons.pause_circle_filled),
+            iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          IconButton(
+            onPressed: () async {
+              await player.stop();
+              setState(() {});
+            },
+            icon: Icon(Icons.stop_circle),
+            iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ],
+      );
+    } else if (player.state == PlayerState.paused) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            onPressed: () async {
+              await player.resume();
+              setState(() {});
+            },
+            icon: Icon(Icons.play_circle_fill),
+            iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          IconButton(
+            onPressed: () async {
+              await player.stop();
+              setState(() {});
+            },
+            icon: Icon(Icons.stop_circle),
+            iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ],
       );
     } else {
-      return IconButton(
-        onPressed: () async {
-          await player.play(AssetSource('squat.mp3'));
-          setState(() {});
-        },
-        icon: Icon(Icons.play_circle_fill),
-        iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,
-        color: Theme.of(context).colorScheme.primary,
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            onPressed: () async {
+              await player.play(AssetSource('squat.mp3'));
+              setState(() {});
+            },
+            icon: Icon(Icons.play_circle_fill),
+            iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ],
       );
     }
   }
