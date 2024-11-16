@@ -66,7 +66,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
         children: [
           IconButton(
             onPressed: () async {
-              await player.play(AssetSource('squat.mp3'));
+              await player.play(AssetSource('sounds/squat.mp3'));
               setState(() {});
             },
             icon: Icon(Icons.play_circle_fill),
