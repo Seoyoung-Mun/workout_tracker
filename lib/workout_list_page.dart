@@ -52,48 +52,48 @@ class WorkoutListPage extends StatelessWidget {
         kcal: 100),    Workout(
         name: '푸쉬업',
         minutes: 15,
-        imageName: 'pushup.gif',
+        imageName: 'pushup.jpeg',
         audioName: 'pushup.mp3',
         kcal: 100),
     Workout(
         name: '마운틴클림버',
         minutes: 15,
-        imageName: 'mountain_climber.gif',
+        imageName: 'mountain_climber.jpeg',
         audioName: 'mountain_climber.mp3',
         kcal: 50),
     Workout(
         name: '런지',
         minutes: 20,
-        imageName: 'lunge.gif',
+        imageName: 'lunge.jpeg',
         audioName: 'lunge.mp3',
         kcal: 100),
     Workout(
         name: '덤벨컬',
         minutes: 40,
-        imageName: 'dumbell_curl.gif',
+        imageName: 'dumbbell_curl.jpeg',
         audioName: 'dumbell_curl.mp3',
         kcal: 200),
     Workout(
         name: '덩키킥',
         minutes: 30,
-        imageName: 'donkey_kick.gif',
+        imageName: 'donkey_kick.jpeg',
         audioName: 'donkey_kick.mp3',
         kcal: 50),
     Workout(
         name: '친업',
         minutes: 25,
-        imageName: 'chinup.gif',
+        imageName: 'chinup.jpeg',
         audioName: 'chinup.mp3',
         kcal: 300),
     Workout(
         name: '벤치프레스',
         minutes: 1,
-        imageName: 'benchpress.gif',
+        imageName: 'benchpress.jpeg',
         audioName: 'benchpress.mp3',
         kcal: 250),
   ];
-  List<Row> getWorkoutList() {
-    List<Row> workoutListRow = [];
+  List<Widget> getWorkoutList() {
+    List<Widget> workoutListRow = [];
     for (int i = 0; i < workouts.length; i++) {
       Workout workout = workouts[i]; // workouts 리스트에서 워크아웃을 하나씩 꺼내서
       // 워크아웃 이름, 이미지, 시간을 변수로 저장
@@ -102,7 +102,11 @@ class WorkoutListPage extends StatelessWidget {
       var time = workout.minutes;
 
       workoutListRow.add(
-        Row(
+        GestureDetector(
+          onTap: () {
+            print('click${workouts[i]}');
+          },
+        child:Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
@@ -112,7 +116,7 @@ class WorkoutListPage extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: AssetImage('${image}'),
+                  image: AssetImage('assets/${image}'),
                 ),
               ),
             ),
@@ -130,9 +134,8 @@ class WorkoutListPage extends StatelessWidget {
             ),
           ],
         ),
-      );
-    }
-    ;
+      ),);
+    };
     return workoutListRow;
   }
 
