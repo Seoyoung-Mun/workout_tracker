@@ -156,7 +156,7 @@ void previousWorkout() {
                 ),
               ],
             ),
-            Text('30분',
+            Text('${currentWorkout.minutes}분',
                 style: Theme.of(context)
                     .textTheme
                     .headlineLarge

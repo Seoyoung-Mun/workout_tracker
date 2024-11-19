@@ -12,6 +12,11 @@ class Workout {
     required this.audioName,
     required this.kcal
   });
-
+@override
+  String toString() {
+    // TODO: implement toString
+  return '${name}, ${minutes}, ${imageName}, ${audioName}, ${kcal}';
+  return super.toString();
+  }
 
 }

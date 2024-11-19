@@ -104,7 +104,8 @@ class WorkoutListPage extends StatelessWidget {
       workoutListRow.add(
         GestureDetector(
           onTap: () {
-            print('click${workouts[i]}');
+            print(workout);
+            print(name);
           },
         child:Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

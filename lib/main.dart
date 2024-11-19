@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: FlexThemeData.light(scheme: FlexScheme.redWine),
       // home: LandingPage(),
-      // home: WorkoutListPage(),
-      home: WorkoutGuidePage(),
+      home: WorkoutListPage(),
+      // home: WorkoutGuidePage(),
     );
   }
 }
