@@ -26,12 +26,12 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
   int workoutIndex = 0;
 
   @override
-  void initState() { //빌드 전에 미리 실행
+  void initState() { //StatefulWidget이 처음 생성되었을 때 호출. data 용도로 자주 사용
     // TODO: implement initState
     super.initState();
     currentWorkout = workouts[workoutIndex];
   }
-  void dispose() {
+  void dispose() { //객체가 영구적으로 제거되었을때 호출. 주로 resource를 release하기 위해 사용
     // TODO: implement dispose
     player.dispose();
     super.dispose();
@@ -44,7 +44,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
           IconButton(
             onPressed: () async {
               await player.pause();
-              setState(() {});
+              setState(() {}); //프레임워크에 데이터가 변경된 것을 알리기 위해 사용. 화면을 갱신
             },
             icon: Icon(Icons.pause_circle_filled),
             iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,
@@ -120,7 +120,7 @@ void previousWorkout() {
 }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { //위젯을 return하는 함수, 화면을 그리는 method
     return Scaffold(
         appBar: AppBar(
           title: Text('WorkoutGuide'),
