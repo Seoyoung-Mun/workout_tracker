@@ -31,6 +31,11 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
     super.initState();
     currentWorkout = workouts[workoutIndex];
   }
+  void dispose() {
+    // TODO: implement dispose
+    player.dispose();
+    super.dispose();
+  }
   Row getIconButton() {
     if (player.state == PlayerState.playing) {
       return Row(
@@ -86,7 +91,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
         children: [
           IconButton(
             onPressed: () async {
-              await player.play(AssetSource('sounds/squat.mp3'));
+              await player.play(AssetSource('sounds/${currentWorkout.audioName}'));
               setState(() {});
             },
             icon: Icon(Icons.play_circle_fill),
@@ -124,11 +129,12 @@ void previousWorkout() {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('스쿼트', style: Theme.of(context).textTheme.displaySmall),
+            Text('${currentWorkout.name}', style: Theme.of(context).textTheme.displaySmall),
             Row(
               children: [
                 IconButton(
-                  onPressed: () {
+                  onPressed: () async{
+                    await player.stop();
                     setState(() {
                       previousWorkout();
                     });
@@ -137,9 +143,10 @@ void previousWorkout() {
                   iconSize: Theme.of(context).textTheme.displayLarge?.fontSize,
                 ),
                 // Image(image: AssetImage('assets/squat.jpeg'),),
-                Expanded(child: Image.asset('assets/squat.jpeg')),
+                Expanded(child: Image.asset('assets/${currentWorkout.imageName}')),
                 IconButton(
-                  onPressed: () {
+                  onPressed: () async{
+                    await player.stop();
                     setState(() {
                       nextWorkout();
                     });
