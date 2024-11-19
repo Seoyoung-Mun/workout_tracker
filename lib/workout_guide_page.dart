@@ -97,6 +97,22 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
       );
     }
   }
+void nextWorkout(){
+  if(workoutIndex < workouts.length){
+    workoutIndex++;
+  } else {
+    workoutIndex = 0;
+  }
+  currentWorkout = workouts[workoutIndex];
+}
+void previousWorkout() {
+  if(workoutIndex > 0){
+    workoutIndex--;
+  } else {
+    workoutIndex = workouts.length-1;
+  }
+  currentWorkout = workouts[workoutIndex];
+}
 
   @override
   Widget build(BuildContext context) {
@@ -114,13 +130,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      if(workoutIndex > 0){
-                        workoutIndex--;
-                      } else {
-                        workoutIndex = workouts.length-1;
-                      }
-
-                      currentWorkout = workouts[workoutIndex];
+                      previousWorkout();
                     });
                   },
                   icon: Icon(Icons.arrow_back_ios),
@@ -131,12 +141,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      if(workoutIndex < workouts.length){
-                        workoutIndex++;
-                      } else {
-                        workoutIndex = 0;
-                      }
-                      currentWorkout = workouts[workoutIndex];
+                      nextWorkout();
                     });
                   },
                   icon: Icon(Icons.arrow_forward_ios),
