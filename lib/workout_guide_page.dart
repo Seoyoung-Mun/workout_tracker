@@ -114,7 +114,12 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      workoutIndex--;
+                      if(workoutIndex > 0){
+                        workoutIndex--;
+                      } else {
+                        workoutIndex = workouts.length-1;
+                      }
+
                       currentWorkout = workouts[workoutIndex];
                     });
                   },
@@ -126,7 +131,11 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      workoutIndex++;
+                      if(workoutIndex < workouts.length){
+                        workoutIndex++;
+                      } else {
+                        workoutIndex = 0;
+                      }
                       currentWorkout = workouts[workoutIndex];
                     });
                   },
