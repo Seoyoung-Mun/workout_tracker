@@ -15,7 +15,7 @@ class Workout {
 @override
   String toString() {
     // TODO: implement toString
-  return '${name}, ${minutes}, ${imageName}, ${audioName}, ${kcal}';
+  return 'name:${name}, minutes:${minutes}, imageName:${imageName}, audioName:${audioName}, kcal:${kcal}';
   return super.toString();
   }
 
