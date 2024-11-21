@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:workout_tracker/landing_page.dart';
 import 'package:workout_tracker/workout_list_page.dart';
 import 'package:workout_tracker/workout_guide_page.dart';
+import 'package:workout_tracker/workout_home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       theme: FlexThemeData.light(scheme: FlexScheme.redWine),
       // home: LandingPage(),
       // home: WorkoutListPage(),
-      home: WorkoutGuidePage(),
+      // home: WorkoutGuidePage(),
+      home: WorkoutHomePage(),
     );
   }
 }
