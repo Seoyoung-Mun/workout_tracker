@@ -1,43 +1,41 @@
 import 'package:flutter/material.dart';
 
 class DashboardCard extends StatelessWidget {
-  const DashboardCard({
+  Icon icon;
+  Text title;
+  Text info;
+  Color? backgraoundColor;
+  DashboardCard({
+    required this.icon,
+    required this.title,
+    required this.info,
+    this.backgraoundColor,
     super.key,
   });
   @override
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.all(8),
+        padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          color: Colors.grey.shade500,
+          color: backgraoundColor??Theme.of(context).colorScheme.outlineVariant,
         ),
         child: Column(
           children: [
             Row(
               children: [
-                Icon(Icons.fitness_center,
-                    size: Theme.of(context).textTheme.headlineSmall?.fontSize,
-                    color: Theme.of(context).colorScheme.primary),
+                icon,
+
                 SizedBox(width: 10),
-                Text(
-                  'Monthly',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                )
+                title,
+
               ],
             ),
             Expanded(
               child: Center(
-                  child: Text(
-                '12회',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              )),
+                  child: info,
+              ),
             )
           ],
         ));
