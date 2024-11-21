@@ -19,9 +19,15 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
             children: [
               Expanded(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Just Do It'),
-                    Text('간단하다. 흔들리면 그것은 지방이다.'),
+                    Text(
+                      'Just Do It',
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                    ),
+                    Text('간단하다. 흔들리면 그것은 지방이다.',
+                        style: TextStyle(fontSize: 18)),
                   ],
                 ),
               ),
@@ -31,6 +37,10 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                 height: 80,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
+                    border: Border.all(
+                      width: 2,
+                      color: Colors.orange,
+                    ),
                   image: DecorationImage(
                     image: AssetImage('assets/me.jpg'),
                   ),
@@ -45,6 +55,7 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
               children: [
                 Expanded(
                   //가로 확장
+                  flex: 2,
                   child: DashboardCard(
                     icon: Icon(Icons.fitness_center,
                         size:
@@ -57,28 +68,21 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                           .titleLarge
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
-                    info: Text(
-                      '12회',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge
-                          ?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                Column(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.grey.shade500,
+                    info: Expanded(
+                      child: Align(
+                        child: Text(
+                          '12회',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
                 Expanded(
+                  flex: 3,
                   child: Column(
                     children: [
                       Expanded(
@@ -96,12 +100,16 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                 .titleLarge
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),
-                          info: Text(
-                            '10분',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(fontWeight: FontWeight.bold),
+                          info: Expanded(
+                            child: Align(
+                              child: Text(
+                                '10분',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -120,12 +128,16 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                 .titleLarge
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),
-                          info: Text(
-                            '100kcal',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(fontWeight: FontWeight.bold),
+                          info: Expanded(
+                            child: Align(
+                              child: Text(
+                                '100kcal',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -159,18 +171,21 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                   color:
                                       Theme.of(context).colorScheme.onPrimary),
                         ),
-                        info: Text(
-                          '아침을 여는 5가지 운동',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary),
+                        info: Expanded(
+                          child: Text(
+                            '아침을 여는 5가지 운동',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary),
+                          ),
                         ),
                         backgraoundColor:
                             Theme.of(context).colorScheme.inversePrimary,
+                          imagePath: 'sample1.png',
                       ),
                       width: 250),
                   SizedBox(
@@ -191,18 +206,22 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                   color:
                                       Theme.of(context).colorScheme.onPrimary),
                         ),
-                        info: Text(
-                          '근력을 키우는 7가지 운동 프로그램',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary),
+                        info: Expanded(
+                          child: Text(
+                            '근력을 키우는 7가지 운동 프로그램',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary),
+                          ),
                         ),
+
                         backgraoundColor:
                             Theme.of(context).colorScheme.inversePrimary,
+                        imagePath: 'sample2.png',
                       ),
                       width: 250),
                 ],
@@ -221,11 +240,13 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary),
               ),
-              info: Text(
-                '당신의 몸은 해 낼 수 있다. 당신의 마음만 설득하면 된다.',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onPrimary),
+              info: Expanded(
+                child: Text(
+                  '당신의 몸은 해 낼 수 있다. 당신의 마음만 설득하면 된다.',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onPrimary),
+                ),
               ),
               backgraoundColor: Theme.of(context).colorScheme.inverseSurface,
             ),
