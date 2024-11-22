@@ -172,7 +172,8 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                       Theme.of(context).colorScheme.onPrimary),
                         ),
                         info: Expanded(
-                          child: Text(
+                          child:
+                          Text(
                             '아침을 여는 5가지 운동',
                             style: Theme.of(context)
                                 .textTheme
@@ -182,6 +183,7 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                     color:
                                         Theme.of(context).colorScheme.onPrimary),
                           ),
+
                         ),
                         backgraoundColor:
                             Theme.of(context).colorScheme.inversePrimary,
@@ -240,14 +242,15 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary),
               ),
-              info: Expanded(
+              info:Expanded(
                 child: Text(
-                  '당신의 몸은 해 낼 수 있다. 당신의 마음만 설득하면 된다.',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onPrimary),
-                ),
+                    '당신의 몸은 해 낼 수 있다. 당신의 마음만 설득하면 된다.',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onPrimary),
+                  ),
               ),
+
               backgraoundColor: Theme.of(context).colorScheme.inverseSurface,
             ),
           )
