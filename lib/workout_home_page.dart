@@ -244,7 +244,7 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
               ),
               info:Expanded(
                 child: Text(
-                    '당신의 몸은 해 낼 수 있다. 당신의 마음만 설득하면 된다.',
+                    '당신의 몸은 해 낼 수 있다. \n당신의 마음만 설득하면 된다.',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.onPrimary),
