@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:workout_tracker/dashboard_card.dart';
 
 class WorkoutHomePage extends StatefulWidget {
   const WorkoutHomePage({super.key});
 
   @override
-  State<WorkoutHomePage> createState() => _WorkoutHomePageState();
+  State<WorkoutHomePage> createState() => WorkoutHomePageState();
 }
 
-class _WorkoutHomePageState extends State<WorkoutHomePage> {
+class WorkoutHomePageState extends State<WorkoutHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,10 +38,10 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                 height: 80,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                    border: Border.all(
-                      width: 2,
-                      color: Colors.orange,
-                    ),
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.orange,
+                  ),
                   image: DecorationImage(
                     image: AssetImage('assets/me.jpg'),
                   ),
@@ -155,6 +156,8 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                 children: [
                   SizedBox(
                       child: DashboardCard(
+                        customOnTap: () =>
+                            context.go('/workout_home/workout_list'),
                         icon: Icon(Icons.run_circle_outlined,
                             size: Theme.of(context)
                                 .textTheme
@@ -172,22 +175,21 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                       Theme.of(context).colorScheme.onPrimary),
                         ),
                         info: Expanded(
-                          child:
-                          Text(
+                          child: Text(
                             '아침을 여는 5가지 운동',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
                                 ?.copyWith(
                                     fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
                           ),
-
                         ),
                         backgraoundColor:
                             Theme.of(context).colorScheme.inversePrimary,
-                          imagePath: 'sample1.png',
+                        imagePath: 'sample1.png',
                       ),
                       width: 250),
                   SizedBox(
@@ -216,11 +218,11 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                                 .titleLarge
                                 ?.copyWith(
                                     fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
                           ),
                         ),
-
                         backgraoundColor:
                             Theme.of(context).colorScheme.inversePrimary,
                         imagePath: 'sample2.png',
@@ -242,15 +244,14 @@ class _WorkoutHomePageState extends State<WorkoutHomePage> {
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary),
               ),
-              info:Expanded(
+              info: Expanded(
                 child: Text(
-                    '당신의 몸은 해 낼 수 있다. \n당신의 마음만 설득하면 된다.',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onPrimary),
-                  ),
+                  '당신의 몸은 해 낼 수 있다. \n당신의 마음만 설득하면 된다.',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onPrimary),
+                ),
               ),
-
               backgraoundColor: Theme.of(context).colorScheme.inverseSurface,
             ),
           )

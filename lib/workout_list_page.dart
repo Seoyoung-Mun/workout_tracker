@@ -1,41 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:workout_tracker/workout.dart';
+import 'package:go_router/go_router.dart';
 
 class WorkoutListPage extends StatelessWidget {
   WorkoutListPage({super.key});
-  // List<String> workoutName = [
-  //   '스쿼트',
-  //   '사이드런지',
-  //   '푸쉬업',
-  //   '마운틴클림버',
-  //   '런지',
-  //   '덤벨컬',
-  //   '덩키킥',
-  //   '친업',
-  //   '벤치프레스'
-  // ];
-  // List<String> workoutImg = [
-  //   'assets/squat.jpeg',
-  //   'assets/side_lunge.jpeg',
-  //   'assets/pushup.jpeg',
-  //   'assets/mountain_climber.jpeg',
-  //   'assets/lunge.jpeg',
-  //   'assets/dumbbell_curl.jpeg',
-  //   'assets/donkey_kick.jpeg',
-  //   'assets/chinup.jpeg',
-  //   'assets/benchpress.jpeg'
-  // ];
-  // List<int> workoutTime = [
-  //   30,
-  //   20,
-  //   15,
-  //   15,
-  //   20,
-  //   40,
-  //   30,
-  //   25,
-  //   10,
-  // ];
 
   List<Workout> workouts = [
     Workout(
@@ -49,7 +17,8 @@ class WorkoutListPage extends StatelessWidget {
         minutes: 20,
         imageName: 'side_lunge.jpeg',
         audioName: 'side_lunge.mp3',
-        kcal: 100),    Workout(
+        kcal: 100),
+    Workout(
         name: '푸쉬업',
         minutes: 15,
         imageName: 'pushup.jpeg',
@@ -92,7 +61,7 @@ class WorkoutListPage extends StatelessWidget {
         audioName: 'benchpress.mp3',
         kcal: 250),
   ];
-  List<Widget> getWorkoutList() {
+  List<Widget> getWorkoutList(BuildContext context) {
     List<Widget> workoutListRow = [];
     for (int i = 0; i < workouts.length; i++) {
       Workout workout = workouts[i]; // workouts 리스트에서 워크아웃을 하나씩 꺼내서
@@ -103,40 +72,39 @@ class WorkoutListPage extends StatelessWidget {
 
       workoutListRow.add(
         GestureDetector(
-          onTap: () {
-            print(workout);
-            print(name);
-          },
-        child:Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              margin: EdgeInsets.all(10),
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage('assets/${image}'),
+          onTap: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: EdgeInsets.all(10),
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage('assets/${image}'),
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              //화면의 크기와 상관없이 가능한 최대 크기로 확장
-              child: Text(
-                '${i + 1}. ${name}',
-                style: TextStyle(fontSize: 20),
+              Expanded(
+                //화면의 크기와 상관없이 가능한 최대 크기로 확장
+                child: Text(
+                  '${i + 1}. ${name}',
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: Text('${time}분',
-                  style: TextStyle(fontSize: 20, color: Colors.blue)),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Text('${time}분',
+                    style: TextStyle(fontSize: 20, color: Colors.blue)),
+              ),
+            ],
+          ),
         ),
-      ),);
-    };
+      );
+    }
+    ;
     return workoutListRow;
   }
 
@@ -150,7 +118,7 @@ class WorkoutListPage extends StatelessWidget {
         body: ListView(
           children:
               // [
-              getWorkoutList(),
+              getWorkoutList(context),
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //   children: [
