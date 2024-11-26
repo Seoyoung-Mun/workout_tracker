@@ -72,7 +72,9 @@ class WorkoutListPage extends StatelessWidget {
 
       workoutListRow.add(
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            context.go('/workout_home/workout_list/workout_guide/${i}');
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

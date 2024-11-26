@@ -3,7 +3,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:workout_tracker/workout.dart';
 
 class WorkoutGuidePage extends StatefulWidget {
-  WorkoutGuidePage({super.key});
+  final int workoutsIndex;
+  WorkoutGuidePage({super.key, required this.workoutsIndex});
 
   @override
   State<WorkoutGuidePage> createState() => _WorkoutGuidePageState();
@@ -11,6 +12,7 @@ class WorkoutGuidePage extends StatefulWidget {
 
 class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
   late Workout currentWorkout;
+  late int workoutIndex;
   final player = AudioPlayer();
   List<Workout> workouts = [
     Workout(
@@ -68,13 +70,14 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
         audioName: 'benchpress.mp3',
         kcal: 250),
   ];
-  int workoutIndex = 0;
+
 
   @override
   void initState() {
     //StatefulWidget이 처음 생성되었을 때 호출. data 용도로 자주 사용
     // TODO: implement initState
     super.initState();
+    workoutIndex = widget.workoutsIndex; //widget은 StatefulWidget을 상속한 클래스의 인스턴스를 의미
     currentWorkout = workouts[workoutIndex];
   }
 
