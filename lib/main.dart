@@ -1,5 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:workout_tracker/router.dart';
 
 import 'package:workout_tracker/landing_page.dart';
 import 'package:workout_tracker/workout_list_page.dart';
@@ -15,12 +16,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
+
       theme: FlexThemeData.light(scheme: FlexScheme.redWine),
       // home: LandingPage(),
       // home: WorkoutListPage(),
       // home: WorkoutGuidePage(),
-      home: WorkoutHomePage(),
+      // home: WorkoutHomePage(),
     );
   }
 }

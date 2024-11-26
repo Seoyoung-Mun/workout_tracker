@@ -68,6 +68,7 @@ class LandingPage extends StatelessWidget {
                               child: Text(
                                 'START',
                                 style: TextStyle(fontSize: 25, fontFamily: "Jua"),
+
                               ),
                             ),
                           ],
