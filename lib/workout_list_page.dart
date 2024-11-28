@@ -5,10 +5,13 @@ import 'package:workout_tracker/workout_manager.dart';
 
 class WorkoutListPage extends StatelessWidget {
   final int groupIndex;
-  WorkoutListPage({super.key, required this.groupIndex});
+  WorkoutListPage({super.key, required this.groupIndex}) {
+    WorkoutManager.currentWorkoutGroupIndex = groupIndex;
+  } //constructor body는 인스턴스가 초기화 된 다음에 동작함
 
   List<Widget> getWorkoutList(BuildContext context) {
-    final List<Workout> workouts = WorkoutManager.workoutGroups[groupIndex].workouts; //instance 변수를 넣는 시점은 함수가 실행될 때 동작
+    final List<Workout> workouts = WorkoutManager
+        .workoutGroups[groupIndex].workouts; //instance 변수를 넣는 시점은 함수가 실행될 때 동작
     //statefulWidget일 때는 Widget.변수 로 사용했었음.
     List<Widget> workoutListRow = [];
     for (int i = 0; i < workouts.length; i++) {
@@ -21,7 +24,8 @@ class WorkoutListPage extends StatelessWidget {
       workoutListRow.add(
         GestureDetector(
           onTap: () {
-            context.go('/workout_home/workout_list/$groupIndex/workout_guide/$i');
+            context
+                .go('/workout_home/workout_list/$groupIndex/workout_guide/$i');
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

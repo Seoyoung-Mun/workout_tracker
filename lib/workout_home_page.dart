@@ -238,6 +238,9 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
           Expanded(
             flex: 3,
             child: DashboardCard(
+              customOnTap: (){
+                context.go('/workout_home/workout_list/${WorkoutManager.currentWorkoutGroupIndex}');
+              },
               icon: Icon(Icons.list,
                   size: Theme.of(context).textTheme.headlineSmall?.fontSize,
                   color: Theme.of(context).colorScheme.primary),

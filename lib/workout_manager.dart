@@ -3,6 +3,7 @@ import 'package:workout_tracker/workout_group.dart';
 import 'workout.dart';
 
 class WorkoutManager {
+  static int? currentWorkoutGroupIndex;
   static List<Workout> workouts = [
     Workout(
         name: '스쿼트',
