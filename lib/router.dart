@@ -16,15 +16,23 @@ final GoRouter router = GoRouter(
           builder: (context, state) => WorkoutHomePage(),
           routes: [
             GoRoute(
-              path: 'workout_list',
-              builder: (context, state) => WorkoutListPage(),
+              path: 'workout_list/:group_index',
+              builder: (context, state) {
+              String? groupIndexString = state.pathParameters['group_index'];
+              final groupIndex = int.parse(groupIndexString!);
+              return WorkoutListPage(groupIndex: groupIndex);
+              },
               routes: [
                 GoRoute(
                   path: 'workout_guide/:workouts_index',
                   builder: (context, state) {
                     String? workoutsIndexString = state.pathParameters['workouts_index'];
                     final workoutsIndex = int.parse(workoutsIndexString!); //안정적인 방식은 아님. 예외처리 구문을 추가 해야함.
-                    return WorkoutGuidePage(workoutsIndex: workoutsIndex);
+
+                    String? groupIndexString = state.pathParameters['group_index'];
+                    final groupIndex = int.parse(groupIndexString!);
+
+                    return WorkoutGuidePage(workoutsIndex: workoutsIndex, groupIndex: groupIndex);
                     },
                 ),
               ],

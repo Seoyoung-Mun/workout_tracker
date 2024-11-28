@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_tracker/dashboard_card.dart';
+import 'package:workout_tracker/workout_manager.dart';
 
 class WorkoutHomePage extends StatefulWidget {
   const WorkoutHomePage({super.key});
@@ -157,7 +158,7 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                   SizedBox(
                       child: DashboardCard(
                         customOnTap: () =>
-                            context.go('/workout_home/workout_list'),
+                            context.go('/workout_home/workout_list/0'),
                         icon: Icon(Icons.run_circle_outlined,
                             size: Theme.of(context)
                                 .textTheme
@@ -176,7 +177,7 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                         ),
                         info: Expanded(
                           child: Text(
-                            '아침을 여는 5가지 운동',
+                            WorkoutManager.workoutGroups[0].groupDescription,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
@@ -194,6 +195,8 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                       width: 250),
                   SizedBox(
                       child: DashboardCard(
+                        customOnTap: () =>
+                            context.go('/workout_home/workout_list/1'),
                         icon: Icon(Icons.rowing_outlined,
                             size: Theme.of(context)
                                 .textTheme
@@ -212,7 +215,7 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                         ),
                         info: Expanded(
                           child: Text(
-                            '근력을 키우는 7가지 운동 프로그램',
+                            WorkoutManager.workoutGroups[1].groupDescription,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
