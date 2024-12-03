@@ -14,11 +14,13 @@ class WorkoutHomePage extends StatefulWidget {
 class WorkoutHomePageState extends State<WorkoutHomePage> {
   int i = 0;
   late Future<int> monthlyCountFuture;
+  late Future<int> todayWorkoutTimeFuture;
   @override
   void initState() { //화면이 생성될 때
     // TODO: implement initState
     super.initState();
     monthlyCountFuture = WorkoutManager.getMonthlyWorkoutCount();
+    todayWorkoutTimeFuture = WorkoutManager.getTodayWorkoutTime();
   }
 
   @override
@@ -26,6 +28,8 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
     monthlyCountFuture = WorkoutManager.getMonthlyWorkoutCount();
+    todayWorkoutTimeFuture = WorkoutManager.getTodayWorkoutTime();
+
   }
 
   @override
@@ -136,12 +140,25 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                             ),
                             info: Expanded(
                               child: Align(
-                                child: Text(
-                                  '10분',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                child: FutureBuilder(
+                                  future: todayWorkoutTimeFuture,
+                                  builder: (context,snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return CircularProgressIndicator();
+                                    }
+                                    if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    }
+                                    final todayWorkoutTime = snapshot.data ?? 0;
+                                    return Text(
+                                      '${todayWorkoutTime}분',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(fontWeight: FontWeight.bold),
+                                    );
+                                  }
                                 ),
                               ),
                             ),

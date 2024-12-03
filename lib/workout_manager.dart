@@ -94,4 +94,23 @@ class WorkoutManager {
     return montylyCount;
   }
 
+  //오늘 운동시간 누적 함수
+  static Future<void> increaseTodayWorkoutTime(int workoutTime) async {
+    int todayWorkoutTime = await getTodayWorkoutTime();
+    final SharedPreferencesAsync asyncPrefs =
+        SharedPreferencesAsync(); //비동기 객체 생성
+
+    // int nowWorkoutTime = workouts[currentWorkoutGroupIndex??0].minutes;//현재 운동시간
+    todayWorkoutTime += workoutTime;
+    print("오늘 운동시간 누적 : $todayWorkoutTime");
+    asyncPrefs.setInt('todayWorkoutTime', todayWorkoutTime);
+    //asyncPrefs.setInt('todayWorkoutTime', 0); //테스트용 (날짜변경시 데이터 리셋)
+  }
+
+  //오늘 운동시간 누적 가져오기
+  static Future<int> getTodayWorkoutTime() async {
+    final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
+    int todayWorkoutTime = await asyncPrefs.getInt('todayWorkoutTime') ?? 0;
+    return todayWorkoutTime;
+  }
 }
