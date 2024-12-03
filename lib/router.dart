@@ -7,6 +7,7 @@ import 'package:workout_tracker/workout_list_page.dart';
 import 'package:workout_tracker/workout_guide_page.dart';
 import 'package:workout_tracker/settings_page.dart';
 import 'package:workout_tracker/login_page.dart';
+import 'package:workout_tracker/animation_practice_widget.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -22,8 +23,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) {
-        return LandingPage();
+        // return LandingPage();
+        return AnimationPracticeWidget();
       },
+
     ),
     StatefulShellRoute.indexedStack(
       parentNavigatorKey: _rootNavigatorKey,
