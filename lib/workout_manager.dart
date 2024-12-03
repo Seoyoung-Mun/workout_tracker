@@ -63,28 +63,34 @@ class WorkoutManager {
   ];
 
   static List<WorkoutGroup> workoutGroups = [
-    WorkoutGroup(
-      groupDescription: '아침을 여는 5가지 운동 프로그램',
-      workouts: [
-        workouts[0],
-        workouts[1],
-        workouts[2],
-        workouts[3],
-        workouts[4],
-      ]
-
-    ), //그룹1
-    WorkoutGroup(
-      groupDescription: '근력을 키우는 7가지 운동 프로그램',
-        workouts: [
-          workouts[1],
-          workouts[2],
-          workouts[3],
-          workouts[4],
-          workouts[5],
-          workouts[6],
-          workouts[7]
-        ]
-    ), //그룹2
+    WorkoutGroup(groupDescription: '아침을 여는 5가지 운동 프로그램', workouts: [
+      workouts[0],
+      workouts[1],
+      workouts[2],
+      workouts[3],
+      workouts[4],
+    ]), //그룹1
+    WorkoutGroup(groupDescription: '근력을 키우는 7가지 운동 프로그램', workouts: [
+      workouts[1],
+      workouts[2],
+      workouts[3],
+      workouts[4],
+      workouts[5],
+      workouts[6],
+      workouts[7]
+    ]), //그룹2
   ];
+
+  static Future<void> increaseMonthlyWorkoutCount() async {
+    final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
+
+    int montlyCount = await getMonthlyWorkoutCount();
+    asyncPrefs.setInt('monthlyCount', ++montlyCount);
+  }
+
+  static Future<int> getMonthlyWorkoutCount() async {
+    final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
+    int montylyCount = await asyncPrefs.getInt('monthlyCount') ?? 0;
+    return montylyCount;
+  }
 }

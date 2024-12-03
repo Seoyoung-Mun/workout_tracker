@@ -7,6 +7,7 @@ class WorkoutListPage extends StatelessWidget {
   final int groupIndex;
   WorkoutListPage({super.key, required this.groupIndex}) {
     WorkoutManager.currentWorkoutGroupIndex = groupIndex;
+    WorkoutManager.increaseMonthlyWorkoutCount();
   } //constructor body는 인스턴스가 초기화 된 다음에 동작함
 
   List<Widget> getWorkoutList(BuildContext context) {
