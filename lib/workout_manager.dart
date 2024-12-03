@@ -93,4 +93,5 @@ class WorkoutManager {
     int montylyCount = await asyncPrefs.getInt('monthlyCount') ?? 0;
     return montylyCount;
   }
+
 }

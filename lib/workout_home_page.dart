@@ -5,13 +5,29 @@ import 'package:workout_tracker/workout_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class WorkoutHomePage extends StatefulWidget {
-  const WorkoutHomePage({super.key});
+  WorkoutHomePage({super.key});
 
   @override
   State<WorkoutHomePage> createState() => WorkoutHomePageState();
 }
 
 class WorkoutHomePageState extends State<WorkoutHomePage> {
+  int i = 0;
+  late Future<int> monthlyCountFuture;
+  @override
+  void initState() { //화면이 생성될 때
+    // TODO: implement initState
+    super.initState();
+    monthlyCountFuture = WorkoutManager.getMonthlyWorkoutCount();
+  }
+
+  @override
+  void didUpdateWidget(covariant WorkoutHomePage oldWidget) { //화면이 업데이트 될 때
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    monthlyCountFuture = WorkoutManager.getMonthlyWorkoutCount();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,13 +91,26 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                       ),
                       info: Expanded(
                         child: Align(
-                          child: Text(
-                            '12회',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
+                          child: FutureBuilder(
+                              //future: WorkoutManager.getMonthlyWorkoutCount(), //함수를 다이렉트로 넘겨주면 안되고 변수에 담은 Future타입으로 넘겨줘야함
+                              future: monthlyCountFuture,
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return CircularProgressIndicator();
+                                }
+                                if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                }
+                                final monthlyWorkoutCount = snapshot.data ?? 0;
+                                return Text(
+                                  '${monthlyWorkoutCount}회',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                );
+                              }),
                         ),
                       ),
                     ),
