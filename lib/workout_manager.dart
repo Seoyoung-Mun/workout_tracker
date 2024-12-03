@@ -113,4 +113,18 @@ class WorkoutManager {
     int todayWorkoutTime = await asyncPrefs.getInt('todayWorkoutTime') ?? 0;
     return todayWorkoutTime;
   }
+
+  //오늘 소모 칼로리 누적
+  static Future<void> increaseTodayKcalorie(int nowKcal) async {
+    final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
+    int todayKcal = await asyncPrefs.getInt('todayKcalorie') ?? 0;
+    await asyncPrefs.setInt('todayKcalorie', todayKcal + nowKcal);
+  }
+  //오늘 소모 칼로리 누적 가져오기
+  static Future<int> getTodayKcalorie() async {
+    final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
+    int todayKcalorie = await asyncPrefs.getInt('todayKcalorie') ?? 0;
+    return todayKcalorie;
+  }
+
 }

@@ -97,7 +97,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                   .play(AssetSource('sounds/${currentWorkout.audioName}'));
               setState(() {});
               WorkoutManager.increaseTodayWorkoutTime(currentWorkout.minutes);
-              print(currentWorkout.minutes);
+              WorkoutManager.increaseTodayKcalorie(currentWorkout.kcal);
             },
             icon: Icon(Icons.play_circle_fill),
             iconSize: Theme.of(context).textTheme.displaySmall?.fontSize,

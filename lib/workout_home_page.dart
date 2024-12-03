@@ -12,15 +12,17 @@ class WorkoutHomePage extends StatefulWidget {
 }
 
 class WorkoutHomePageState extends State<WorkoutHomePage> {
-  int i = 0;
+
   late Future<int> monthlyCountFuture;
   late Future<int> todayWorkoutTimeFuture;
+  late Future<int> todayKcalFuture;
   @override
   void initState() { //화면이 생성될 때
     // TODO: implement initState
     super.initState();
     monthlyCountFuture = WorkoutManager.getMonthlyWorkoutCount();
     todayWorkoutTimeFuture = WorkoutManager.getTodayWorkoutTime();
+    todayKcalFuture = WorkoutManager.getTodayKcalorie();
   }
 
   @override
@@ -29,7 +31,7 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
     super.didUpdateWidget(oldWidget);
     monthlyCountFuture = WorkoutManager.getMonthlyWorkoutCount();
     todayWorkoutTimeFuture = WorkoutManager.getTodayWorkoutTime();
-
+    todayKcalFuture = WorkoutManager.getTodayKcalorie();
   }
 
   @override
@@ -181,12 +183,18 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                             ),
                             info: Expanded(
                               child: Align(
-                                child: Text(
-                                  '100kcal',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                child: FutureBuilder(
+                                  future: todayKcalFuture,
+                                  builder: (context, snapsout) {
+                                    final todayKcal = snapsout.data ?? 0;
+                                    return Text(
+                                      '${todayKcal}kcal',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(fontWeight: FontWeight.bold),
+                                    );
+                                  }
                                 ),
                               ),
                             ),
