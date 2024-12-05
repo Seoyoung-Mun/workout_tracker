@@ -62,7 +62,7 @@ class _AnimatedIconWidgetState extends State<AnimatedIconWidget>
     return AnimatedBuilder( // 애니메이션을 사용할 때는 AnimatedBuilder를 사용해야 함
       animation: _controller,
       builder: (context, child) {
-        return Transform.rotate(
+        return Transform.rotate( // Transform.rotate은 widget을 회전시킴
           angle: _animation.value * 0.0174533, // 0.0174533은 1도를 라디안 값으로 변환한 것
           child: Icon(
             widget.icon,
