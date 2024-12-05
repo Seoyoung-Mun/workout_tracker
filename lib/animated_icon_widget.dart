@@ -52,14 +52,14 @@ class _AnimatedIconWidgetState extends State<AnimatedIconWidget>
 
   @override
   void dispose() { // dispose는 위젯이 사라질 때 호출되는 메서드. 애니메이션을 사용할 때는 반드시 dispose를 호출해야 함.
-    // _controller.dispose(); // dispose는 위젯이 사라질 때 호출되는 메서드. 애니메이션을 사용할 때는 반드시 dispose를 호출해야 함.
     // TODO: implement dispose
+    _controller.dispose(); // dispose는 위젯이 사라질 때 호출되는 메서드. 애니메이션을 사용할 때는 반드시 dispose를 호출해야 함.
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
+    return AnimatedBuilder( // 애니메이션을 사용할 때는 AnimatedBuilder를 사용해야 함
       animation: _controller,
       builder: (context, child) {
         return Transform.rotate(
