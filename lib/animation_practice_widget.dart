@@ -9,21 +9,24 @@ class AnimationPracticeWidget extends StatefulWidget {
 }
 
 class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget> {
-Alignment _alignment = Alignment.topLeft;
+  TextStyle _textStyle = TextStyle(fontSize: 24, color: Colors.black, fontFamily: 'NanumBrushScript');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: AnimatedAlign(
-  alignment: _alignment,
-          duration: Duration(seconds: 2),
-          child: FlutterLogo(size: 115),
+        child: AnimatedDefaultTextStyle(
+          style: _textStyle,
+          duration: Duration(seconds: 1),
+          child: Text('Hello, World!!'),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            _alignment = _alignment == Alignment.topLeft? Alignment(0.0, 0.0): Alignment.topLeft;
+            _textStyle =
+                _textStyle == TextStyle(fontSize: 24, color: Colors.black, fontFamily: 'NanumBrushScript')
+                    ? _textStyle = TextStyle(fontSize: 48, color: Colors.blue, fontFamily: 'Jua')
+                    : TextStyle(fontSize: 24, color: Colors.black, fontFamily: 'NanumBrushScript');
           });
         },
         child: Icon(Icons.play_arrow),
