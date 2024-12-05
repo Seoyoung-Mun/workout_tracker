@@ -9,26 +9,27 @@ class AnimationPracticeWidget extends StatefulWidget {
 }
 
 class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget> {
-  TextStyle _textStyle = TextStyle(fontSize: 24, color: Colors.black, fontFamily: 'NanumBrushScript');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: AnimatedDefaultTextStyle(
-          style: _textStyle,
-          duration: Duration(seconds: 1),
-          child: Text('Hello, World!!'),
+        child: TweenAnimationBuilder(
+          duration: Duration(seconds: 3),
+          tween: Tween<double>(begin: 0, end: 1),
+          builder: (context, value, child) {
+            return Opacity(
+              child: child, //여기서 child는 애니메이션을 적용시킬 위젯
+              opacity: value,
+            );
+          },
+          child: Text(
+            'Hello, World!',
+            style: TextStyle(fontSize: 24),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _textStyle =
-                _textStyle == TextStyle(fontSize: 24, color: Colors.black, fontFamily: 'NanumBrushScript')
-                    ? _textStyle = TextStyle(fontSize: 48, color: Colors.blue, fontFamily: 'Jua')
-                    : TextStyle(fontSize: 24, color: Colors.black, fontFamily: 'NanumBrushScript');
-          });
-        },
+        onPressed: () {},
         child: Icon(Icons.play_arrow),
       ),
     );
