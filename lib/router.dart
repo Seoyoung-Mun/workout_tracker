@@ -23,8 +23,8 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) {
-        return LandingPage();
-        // return AnimationPracticeWidget();
+        // return LandingPage();
+        return AnimationPracticeWidget();
       },
 
     ),
