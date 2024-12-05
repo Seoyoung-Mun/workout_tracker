@@ -20,14 +20,18 @@ class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget> {
           tween: Tween<double>(begin: _begin, end: _end),
           builder: (context, value, child) {
             return Opacity(
-              child: child, //여기서 child는 애니메이션을 적용시킬 위젯
+              // child: child, //여기서 child는 애니메이션을 적용시킬 위젯
+              child: Text(
+              'Hello, World!',
+              style: TextStyle(fontSize: 24),
+            ),
               opacity: value,
             );
           },
-          child: Text(
-            'Hello, World!',
-            style: TextStyle(fontSize: 24),
-          ),
+          // child: Text(
+          //   'Hello, World!',
+          //   style: TextStyle(fontSize: 24),
+          // ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
