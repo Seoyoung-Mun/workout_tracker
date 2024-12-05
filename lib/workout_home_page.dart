@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:workout_tracker/animated_icon_widget.dart';
 import 'package:workout_tracker/dashboard_card.dart';
 import 'package:workout_tracker/workout_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:workout_tracker/animation_practice_widget.dart';
 
 class WorkoutHomePage extends StatefulWidget {
   WorkoutHomePage({super.key});
@@ -12,12 +14,12 @@ class WorkoutHomePage extends StatefulWidget {
 }
 
 class WorkoutHomePageState extends State<WorkoutHomePage> {
-
   late Future<int> monthlyCountFuture;
   late Future<int> todayWorkoutTimeFuture;
   late Future<int> todayKcalFuture;
   @override
-  void initState() { //화면이 생성될 때
+  void initState() {
+    //화면이 생성될 때
     // TODO: implement initState
     super.initState();
     monthlyCountFuture = WorkoutManager.getMonthlyWorkoutCount();
@@ -26,7 +28,8 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
   }
 
   @override
-  void didUpdateWidget(covariant WorkoutHomePage oldWidget) { //화면이 업데이트 될 때
+  void didUpdateWidget(covariant WorkoutHomePage oldWidget) {
+    //화면이 업데이트 될 때
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
     monthlyCountFuture = WorkoutManager.getMonthlyWorkoutCount();
@@ -82,12 +85,18 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                     //가로 확장
                     flex: 2,
                     child: DashboardCard(
-                      icon: Icon(Icons.fitness_center,
-                          size: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.fontSize,
-                          color: Theme.of(context).colorScheme.primary),
+                      icon: AnimatedIconWidget(
+                        icon: Icons.fitness_center,
+                        size:
+                            Theme.of(context).textTheme.headlineSmall?.fontSize,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      // Icon(Icons.fitness_center,
+                      //     size: Theme.of(context)
+                      //         .textTheme
+                      //         .headlineSmall
+                      //         ?.fontSize,
+                      //     color: Theme.of(context).colorScheme.primary),
                       title: Text(
                         'Monthly',
                         style: Theme.of(context)
@@ -127,12 +136,20 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                       children: [
                         Expanded(
                           child: DashboardCard(
-                            icon: Icon(Icons.update,
-                                size: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.fontSize,
-                                color: Theme.of(context).colorScheme.primary),
+                            icon: AnimatedIconWidget(
+                              icon: Icons.update,
+                              size: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.fontSize,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            // Icon(Icons.update,
+                            //     size: Theme.of(context)
+                            //         .textTheme
+                            //         .headlineSmall
+                            //         ?.fontSize,
+                            //     color: Theme.of(context).colorScheme.primary),
                             title: Text(
                               '오늘 운동 시간',
                               style: Theme.of(context)
@@ -143,37 +160,46 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                             info: Expanded(
                               child: Align(
                                 child: FutureBuilder(
-                                  future: todayWorkoutTimeFuture,
-                                  builder: (context,snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return CircularProgressIndicator();
-                                    }
-                                    if (snapshot.hasError) {
-                                      return Text('Error: ${snapshot.error}');
-                                    }
-                                    final todayWorkoutTime = snapshot.data ?? 0;
-                                    return Text(
-                                      '${todayWorkoutTime}분',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge
-                                          ?.copyWith(fontWeight: FontWeight.bold),
-                                    );
-                                  }
-                                ),
+                                    future: todayWorkoutTimeFuture,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return CircularProgressIndicator();
+                                      }
+                                      if (snapshot.hasError) {
+                                        return Text('Error: ${snapshot.error}');
+                                      }
+                                      final todayWorkoutTime =
+                                          snapshot.data ?? 0;
+                                      return Text(
+                                        '${todayWorkoutTime}분',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.bold),
+                                      );
+                                    }),
                               ),
                             ),
                           ),
                         ),
                         Expanded(
                           child: DashboardCard(
-                            icon: Icon(Icons.fitness_center,
+                            icon: AnimatedIconWidget(
+                                icon: Icons.fitness_center,
                                 size: Theme.of(context)
                                     .textTheme
                                     .headlineSmall
                                     ?.fontSize,
                                 color: Theme.of(context).colorScheme.primary),
+
+                            // Icon(Icons.fitness_center,
+                            //     size: Theme.of(context)
+                            //         .textTheme
+                            //         .headlineSmall
+                            //         ?.fontSize,
+                            //     color: Theme.of(context).colorScheme.primary),
                             title: Text(
                               '소모 칼로리',
                               style: Theme.of(context)
@@ -184,18 +210,18 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                             info: Expanded(
                               child: Align(
                                 child: FutureBuilder(
-                                  future: todayKcalFuture,
-                                  builder: (context, snapsout) {
-                                    final todayKcal = snapsout.data ?? 0;
-                                    return Text(
-                                      '${todayKcal}kcal',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge
-                                          ?.copyWith(fontWeight: FontWeight.bold),
-                                    );
-                                  }
-                                ),
+                                    future: todayKcalFuture,
+                                    builder: (context, snapsout) {
+                                      final todayKcal = snapsout.data ?? 0;
+                                      return Text(
+                                        '${todayKcal}kcal',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.bold),
+                                      );
+                                    }),
                               ),
                             ),
                           ),
