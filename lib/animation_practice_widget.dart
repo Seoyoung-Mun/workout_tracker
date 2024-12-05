@@ -23,7 +23,7 @@ Alignment _alignment = Alignment.topLeft;
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            _alignment = _alignment == Alignment.topLeft? Alignment.bottomRight: Alignment.topLeft;
+            _alignment = _alignment == Alignment.topLeft? Alignment(0.0, 0.0): Alignment.topLeft;
           });
         },
         child: Icon(Icons.play_arrow),
