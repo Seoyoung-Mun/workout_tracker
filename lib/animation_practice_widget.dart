@@ -9,19 +9,13 @@ class AnimationPracticeWidget extends StatefulWidget {
 }
 
 class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget> {
-  double _width = 115;
-  double _height = 115;
-  Color _color = Colors.blueAccent;
-
-
+Alignment _alignment = Alignment.topLeft;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: AnimatedContainer(
-          width: _width,
-          height: _height,
-          color: _color,
+        child: AnimatedAlign(
+  alignment: _alignment,
           duration: Duration(seconds: 2),
           child: FlutterLogo(size: 115),
         ),
@@ -29,9 +23,7 @@ class _AnimationPracticeWidgetState extends State<AnimationPracticeWidget> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            _width = _width == 115? 215: 115;
-            _height = _height == 115? 215: 115;
-            _color = _color == Colors.blueAccent? Colors.red: Colors.blueAccent;
+            _alignment = _alignment == Alignment.topLeft? Alignment.bottomRight: Alignment.topLeft;
           });
         },
         child: Icon(Icons.play_arrow),
