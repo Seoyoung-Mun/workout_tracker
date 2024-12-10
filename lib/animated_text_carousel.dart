@@ -25,15 +25,25 @@ class _AnimatedTextCarouselState extends State<AnimatedTextCarousel> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     _timer = Timer.periodic(Duration(seconds: 2), (Timer timer) {
-      _currentPage ++;
+      _currentPage++;
       //pagecontroller로 다음 페이지 이동시키기
       _pageController.animateToPage(
         _currentPage,
         duration: Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
-    });
+    },);
+
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _timer.cancel();
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -42,6 +52,11 @@ class _AnimatedTextCarouselState extends State<AnimatedTextCarousel> {
       height: 80,
       child: PageView.builder(
           controller: _pageController,
+          onPageChanged: (int loopedIndex){
+            setState(() {
+              _currentPage = loopedIndex;
+            });
+          },
           // itemCount: _texts.length, //페이지 개수
           itemBuilder: (context, index) {
             int loopedIndex = index % _texts.length;
