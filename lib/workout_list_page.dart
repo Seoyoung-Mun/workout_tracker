@@ -211,6 +211,6 @@ class WorkoutListPage extends StatelessWidget {
             //   ],
             // ),
           ],
-        ));
+        ),);
   }
 }
