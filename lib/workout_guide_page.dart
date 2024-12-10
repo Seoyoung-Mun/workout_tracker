@@ -6,8 +6,8 @@ import 'package:workout_tracker/workout_manager.dart';
 class WorkoutGuidePage extends StatefulWidget {
   final int workoutsIndex;
   final int groupIndex;
-  WorkoutGuidePage({super.key, required this.workoutsIndex, required this.groupIndex});
-
+  WorkoutGuidePage(
+      {super.key, required this.workoutsIndex, required this.groupIndex});
 
   @override
   State<WorkoutGuidePage> createState() => _WorkoutGuidePageState();
@@ -20,13 +20,13 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
   late int workoutIndex;
   final player = AudioPlayer();
 
-
   @override
   void initState() {
     //StatefulWidget이 처음 생성되었을 때 호출. data 용도로 자주 사용
     // TODO: implement initState
     super.initState();
-    workoutIndex = widget.workoutsIndex; //widget은 StatefulWidget을 상속한 클래스의 인스턴스를 의미
+    workoutIndex =
+        widget.workoutsIndex; //widget은 StatefulWidget을 상속한 클래스의 인스턴스를 의미
     workouts = WorkoutManager.workoutGroups[widget.groupIndex].workouts;
     currentWorkout = workouts[workoutIndex];
   }
@@ -41,6 +41,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
   Row getIconButton() {
     if (player.state == PlayerState.playing) {
       return Row(
+        key: ValueKey(1),
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
@@ -65,6 +66,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
       );
     } else if (player.state == PlayerState.paused) {
       return Row(
+        key: ValueKey(2),
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
@@ -171,7 +173,10 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                     .textTheme
                     .headlineLarge
                     ?.copyWith(color: Theme.of(context).colorScheme.secondary)),
-            getIconButton()
+            AnimatedSwitcher(
+              duration: Durations.extralong4,
+              child: getIconButton(),
+            )
           ],
         ));
   }
