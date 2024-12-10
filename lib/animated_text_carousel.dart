@@ -62,7 +62,7 @@ class _AnimatedTextCarouselState extends State<AnimatedTextCarousel> {
             int loopedIndex = index % _texts.length;
             /* %는 나머지를 구하는 연산자
             index가 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19.. 이렇게 나오는데
-            %연산자를 쓰면 0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1 이렇게 나옴*/
+            %연산자를 쓰면 0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1 이렇게 나옴 */
             return Column(
               children: [
                 Text(
