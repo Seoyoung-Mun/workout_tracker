@@ -239,29 +239,19 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                 child: Row(
                   children: [
                     SizedBox(
-                        child: DashboardCard(
-                          customOnTap: () =>
-                              context.go('/workout_home/workout_list/0'),
-                          icon: Icon(Icons.run_circle_outlined,
-                              size: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.fontSize,
-                              color: Theme.of(context).colorScheme.onPrimary),
-                          title: Text(
-                            '그룹1',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary),
-                          ),
-                          info: Expanded(
-                            child: Text(
-                              WorkoutManager.workoutGroups[0].groupDescription,
+                        child: Hero(
+                          tag: 'group_0',
+                          child: DashboardCard(
+                            customOnTap: () =>
+                                context.go('/workout_home/workout_list/0'),
+                            icon: Icon(Icons.run_circle_outlined,
+                                size: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.fontSize,
+                                color: Theme.of(context).colorScheme.onPrimary),
+                            title: Text(
+                              '그룹1',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge
@@ -271,36 +261,39 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                                           .colorScheme
                                           .onPrimary),
                             ),
+                            info: Expanded(
+                              child: Text(
+                                WorkoutManager.workoutGroups[0].groupDescription,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary),
+                              ),
+                            ),
+                            backgraoundColor:
+                                Theme.of(context).colorScheme.inversePrimary,
+                            imagePath: 'sample1.png',
                           ),
-                          backgraoundColor:
-                              Theme.of(context).colorScheme.inversePrimary,
-                          imagePath: 'sample1.png',
                         ),
                         width: 250),
                     SizedBox(
-                        child: DashboardCard(
-                          customOnTap: () =>
-                              context.go('/workout_home/workout_list/1'),
-                          icon: Icon(Icons.rowing_outlined,
-                              size: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.fontSize,
-                              color: Theme.of(context).colorScheme.onPrimary),
-                          title: Text(
-                            '그룹2',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary),
-                          ),
-                          info: Expanded(
-                            child: Text(
-                              WorkoutManager.workoutGroups[1].groupDescription,
+                        child: Hero(
+                          tag: 'group_1',
+                          child: DashboardCard(
+                            customOnTap: () =>
+                                context.go('/workout_home/workout_list/1'),
+                            icon: Icon(Icons.rowing_outlined,
+                                size: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.fontSize,
+                                color: Theme.of(context).colorScheme.onPrimary),
+                            title: Text(
+                              '그룹2',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge
@@ -310,10 +303,23 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                                           .colorScheme
                                           .onPrimary),
                             ),
+                            info: Expanded(
+                              child: Text(
+                                WorkoutManager.workoutGroups[1].groupDescription,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary),
+                              ),
+                            ),
+                            backgraoundColor:
+                                Theme.of(context).colorScheme.inversePrimary,
+                            imagePath: 'sample2.png',
                           ),
-                          backgraoundColor:
-                              Theme.of(context).colorScheme.inversePrimary,
-                          imagePath: 'sample2.png',
                         ),
                         width: 250),
                   ],
