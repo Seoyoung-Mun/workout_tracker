@@ -40,6 +40,8 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    int i = 0;
+    i++;
     return Scaffold(
       body: SafeArea(
         child: Column(

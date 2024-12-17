@@ -7,6 +7,7 @@ import 'package:workout_tracker/workout_list_page.dart';
 import 'package:workout_tracker/workout_guide_page.dart';
 import 'package:workout_tracker/settings_page.dart';
 import 'package:workout_tracker/login_page.dart';
+import 'package:workout_tracker/registration_page.dart';
 import 'package:workout_tracker/animation_practice_widget.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -26,7 +27,6 @@ final GoRouter router = GoRouter(
         return LandingPage();
         // return AnimationPracticeWidget();
       },
-
     ),
     StatefulShellRoute.indexedStack(
       parentNavigatorKey: _rootNavigatorKey,
@@ -87,6 +87,14 @@ final GoRouter router = GoRouter(
                   builder: (context, state) {
                     return LoginPage();
                   },
+                  routes: [
+                    GoRoute(
+                      path: 'registration',
+                      builder: (context, state) {
+                        return RegistrationPage();
+                      },
+                    )
+                  ],
                 )
               ],
             )
