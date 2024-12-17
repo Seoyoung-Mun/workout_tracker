@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:workout_tracker/exception_handler.dart';
+import 'package:workout_tracker/show_snackbar.dart';
+import 'firebase_auth_service.dart';
 
 class RegistrationPage extends StatelessWidget {
   RegistrationPage({super.key});
+
+  final TextEditingController _passwordController = TextEditingController();
+  final _auth = FirebaseAuthService();
 
   final _formKey = GlobalKey<FormState>();
   String? name;
   String? email;
   String? password;
-
-  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +47,8 @@ class RegistrationPage extends StatelessWidget {
                       labelText: '이름',
                       labelStyle: Theme.of(context).textTheme.headlineSmall,
                       border: UnderlineInputBorder(),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      floatingLabelBehavior:
+                          FloatingLabelBehavior.always, //label이 항상 위로 올라오게 함
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -121,6 +127,8 @@ class RegistrationPage extends StatelessWidget {
                       if (value == null || value.isEmpty) {
                         return '비밀번호를 다시 입력 해 주세요.';
                       } else if (value != _passwordController.text) {
+                        print(
+                            'value: $value, _passwordController.text: ${_passwordController.text}');
                         return '비밀번호가 일치하지 않습니다.';
                       }
                       return null;
@@ -130,15 +138,34 @@ class RegistrationPage extends StatelessWidget {
                     height: 16,
                   ),
                   //Button Widget
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        _formKey.currentState?.save(); //save를 해줘야 입력한 값이 저장됨
-                        _formKey.currentState?.reset(); //reset을 해줘야 입력한 값이 지워짐
-                      }
-                      print('$name, $email, $password');
-                    },
-                    child: Text('가입하기'),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          _formKey.currentState?.save(); //save를 해줘야 입력한 값이 저장됨
+                          // _formKey.currentState?.reset(); //reset을 해줘야 입력한 값이 지워짐
+                        }
+                        print('$name, $email, $password');
+                        try {
+                          _auth.signUpWithEmail(
+                              email: email!, password: password!, name: name);
+                          context.go('/workout_home');
+                        } on WTException catch (error) {
+                          showSnackBar(context, error.message ?? '');
+                        } catch (e) {
+                          showSnackBar(context, e.toString() ?? '');
+                        }
+                      },
+                      child: Text('가입하기'),
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 15.0),
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
