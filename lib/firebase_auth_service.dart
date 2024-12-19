@@ -140,4 +140,12 @@ bool isLoggedIn() {
   return _auth.currentUser != null;
 }
 
+  Future<void> updateName(String? name) async {
+    //유저 이름 수정
+    try {
+      await _auth.currentUser?.updateDisplayName(name);
+    } catch (e) {
+      throw Exception('수정 실패:$e');
+    }
+  }
 }

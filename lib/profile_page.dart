@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:workout_tracker/firebase_auth_service.dart';
+import 'package:workout_tracker/show_snackbar.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({super.key});
@@ -61,11 +62,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               TextFormField(
+                initialValue: name,
                 decoration: InputDecoration(
                     labelText: 'name',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.person)),
-                obscureText: true, // 비밀번호를 입력할 때 별표(*)로 가리기
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return '이름을 입력해주세요.';
@@ -77,7 +78,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
               TextFormField(
+                initialValue: email, // 이메일 기본값으로 설정
                 decoration: InputDecoration(
+                  enabled: false,
+                  // input 비활성화
                   labelText: 'Email',
                   hintText: 'example@example.com',
                   border: OutlineInputBorder(),
@@ -117,7 +121,16 @@ class _ProfilePageState extends State<ProfilePage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      _formKey.currentState?.save();
+                      _auth.updateName(name).then((_) {
+                        showSnackBar(context, '수정 되었습니다.');
+                      }).catchError((e) {
+                        showSnackBar(context, e.toString());
+                      });
+                    }
+                  },
                   child: Text('수정'),
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 15.0),
