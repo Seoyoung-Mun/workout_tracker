@@ -108,4 +108,9 @@ class FirebaseAuthService {
       throw WTException(e.toString());
     }
   }
+
+  bool isLoggedIn(){
+    //로그인 여부 확인
+    return _auth.currentUser != null;
+  }
 }
