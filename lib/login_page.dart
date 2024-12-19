@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:workout_tracker/firebase_auth_service.dart';
+import 'package:workout_tracker/show_snackbar.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
+  final _auth = FirebaseAuthService();
+
   final _formKey = GlobalKey<FormState>();
   String? email;
   String? password;
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,9 +95,19 @@ class LoginPage extends StatelessWidget {
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
                       _formKey.currentState?.save();
+                      _auth
+                          .signInWithEmail(email: email!, password: password!)
+                          .then((_) {
+                        //개발자가 인식하지 않아도 된다는 의미로 파라미터에 _를 사용
+                        //then은 성공하면 실행
+                        showSnackBar(context, '로그인이 되었습니다.');
+                        context.go('/workout_home'); //로그인 성공하면 홈화면으로 이동
+                      }).catchError((e) {
+                        //catchError는 실패하면 실행
+                        showSnackBar(context, e.toString());
+                      });
                     }
-                    print(email);
-                    print(password);
+
                     //email, password => firebase 인증
                   },
                   child: Text('로그인'),
@@ -130,7 +142,5 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-
 
 // 화면에서 Keyboard가 보이는 단축키 Command+K

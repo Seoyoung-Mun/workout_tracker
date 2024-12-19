@@ -10,13 +10,18 @@ class FirebaseAuthService {
     _auth.setLanguageCode('kr'); // 로그인 페이지의 언어를 한국어로 설정
   }
 
-  Future<void> signUpWithEmail(
-      {required String email, required String password, String? name}) async {
+  Future<void> signUpWithEmail({
+    required String email,
+    required String password,
+    String? name,
+  }) async {
     String? errorMessage;
     //회원가입 코드
     try {
       await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       await _auth.currentUser?.updateDisplayName(name);
       await _auth.currentUser?.sendEmailVerification(); // 가입 후 이메일 인증 메일 발송
     } on FirebaseAuthException catch (error) {
@@ -51,8 +56,40 @@ class FirebaseAuthService {
     }
   }
 
-  Future<void> signInWithEmail() async {
+  Future<void> signInWithEmail({
+    required String email,
+    required String password,
+  }) async {
     //로그인 코드
+    String? errorMessage;
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (error) {
+      switch (error.code) {
+        case 'invalid-email':
+          errorMessage = '이메일 형식이 올바르지 않습니다.';
+          break;
+        case 'user-not-found':
+          errorMessage = '회원이 존재하지 않는 이메일입니다.';
+          break;
+        case 'wrong-password':
+          errorMessage = '비밀번호가 잘못되었습니다.';
+          break;
+        case 'user-disabled':
+          errorMessage = '사용이 중지된 계정입니다.';
+          break;
+        default:
+          errorMessage = '로그인에 실패하였습니다.';
+      }
+    } catch (e) {
+      errorMessage = '로그인 실패: $e';
+    }
+    if (errorMessage != null) {
+      throw WTException(errorMessage);
+    }
   }
 
   Future<void> resetPassword() async {
