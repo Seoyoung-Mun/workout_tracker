@@ -102,5 +102,10 @@ class FirebaseAuthService {
 
   Future<void> singOut() async {
     //로그아웃
+    try {
+      await _auth.signOut();
+    } catch (e) {
+      throw WTException(e.toString());
+    }
   }
 }
