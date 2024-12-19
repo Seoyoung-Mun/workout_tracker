@@ -9,6 +9,7 @@ class FirebaseAuthService {
     // 이 방식은 final 변수나 private 변수를 생성자에서 초기화할 때 주로 사용
     _auth.setLanguageCode('kr'); // 로그인 페이지의 언어를 한국어로 설정
   }
+    User? get user => _auth.currentUser; // 현재 로그인한 유저의 정보를 가져와 user 변수에 저장
 
   Future<void> signUpWithEmail({
     required String email,
@@ -28,7 +29,7 @@ class FirebaseAuthService {
       //회원가입 실패 시 에러 처리
       print(error);
       switch (error.code) {
-        //공식문서(https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/signInWithEmailAndPassword.html)에서 참고한 에러 코드
+      //공식문서(https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/signInWithEmailAndPassword.html)에서 참고한 에러 코드
         case 'weak-password':
           errorMessage = '비밀번호가 취약합니다. 최소 6자리 이상의 문자를 입력하세요.';
           break;
@@ -92,25 +93,51 @@ class FirebaseAuthService {
     }
   }
 
-  Future<void> resetPassword() async {
+  Future<void> resetPassword({required String email,}) async {
+    String? errorMessage;
     //비밀번호 재설정
-  }
-
-  Future<void> deleteAccount() async {
-    //회원탈퇴
-  }
-
-  Future<void> singOut() async {
-    //로그아웃
     try {
-      await _auth.signOut();
-    } catch (e) {
-      throw WTException(e.toString());
+      await _auth.sendPasswordResetEmail(email: email);
+      print('비밀번호 재설정 이메일이 전송되었습니다.');
+    } on FirebaseAuthException catch (error) {
+      String? errorMessage;
+
+      switch (error.code) {
+        case 'auth/user-not-found':
+          errorMessage = '해당 이메일로 가입된 사용자가 없습니다.';
+          break;
+        case 'auth/invalid-email':
+          errorMessage = '유효하지 않은 이메일입니다.';
+          break;
+        default:
+          errorMessage = error.message ?? '알 수 없는 오류가 발생했습니다.';
+      }
+    }catch (error) {
+      errorMessage = '알 수 없는 오류가 발생했습니다.';
     }
+    if (errorMessage != null) {
+      throw Exception(errorMessage);
+    }
+
   }
 
-  bool isLoggedIn() {
-    //로그인 여부 확인
-    return _auth.currentUser != null;
+
+Future<void> deleteAccount() async {
+  //회원탈퇴
+}
+
+Future<void> singOut() async {
+  //로그아웃
+  try {
+    await _auth.signOut();
+  } catch (e) {
+    throw WTException(e.toString());
   }
+}
+
+bool isLoggedIn() {
+  //로그인 여부 확인
+  return _auth.currentUser != null;
+}
+
 }

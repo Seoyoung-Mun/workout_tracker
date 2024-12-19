@@ -64,7 +64,7 @@ class SettingsPage extends StatelessWidget {
                       },
                     ),
                     ItemCard(
-                      title: '알림',
+                      title: '프로필',
                       color: (brightness == Brightness.light)
                           ? Colors.white
                           : Theme.of(context).scaffoldBackgroundColor,
@@ -74,7 +74,7 @@ class SettingsPage extends StatelessWidget {
                         //print('check setting: ${context.read<FirebaseAuthService>().user}');
                         //context.go('settings/login',extra: {'navigatorKey': rootNavigatorKey});
                         //shellNavigatorKey.currentContext!.go('settings/login');
-                        context.go('/settings/login2');
+                        context.go('/settings/profile');
                       },
                     ),
                     SizedBox(height: 20),

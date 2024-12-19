@@ -84,7 +84,9 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.go('/settings/login/reset_password');
+                    },
                     child: Text('Forgot your password?'),
                   ),
                 ],

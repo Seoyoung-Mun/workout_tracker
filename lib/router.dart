@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_tracker/landing_page.dart';
 import 'package:workout_tracker/frame_page.dart';
+import 'package:workout_tracker/profile_page.dart';
+import 'package:workout_tracker/reset_password_page.dart';
 import 'package:workout_tracker/workout_home_page.dart';
 import 'package:workout_tracker/workout_list_page.dart';
 import 'package:workout_tracker/workout_guide_page.dart';
@@ -20,6 +23,21 @@ final GlobalKey<NavigatorState> _settingsNavigatorKey =
 // GoRouter configuration
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
+  redirect: (context, state) {
+    //redirect에서 페이지를 제한
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null &&
+        (state.uri.path != '/settings/login/registration' &&
+            state.uri.path != '/settings/login/reset_password') &&
+        state.uri.path != '/') {
+      return '/settings/login';
+    }
+    if (user != null &&
+        (state.uri.path == '/settings/login' ||
+            state.uri.path == '/settings/reset_password')) {
+      return 'settings';
+    }
+  },
   routes: [
     GoRoute(
       path: '/',
@@ -93,9 +111,20 @@ final GoRouter router = GoRouter(
                       builder: (context, state) {
                         return RegistrationPage();
                       },
+                    ),
+                    GoRoute(
+                      path: 'reset_password',
+                      builder: (context, state) {
+                        return ResetPasswordPage();
+                      },
                     )
                   ],
-                )
+                ),
+                GoRoute(
+                    path: 'profile',
+                    builder: (context, state) {
+                      return ProfilePage();
+                    }),
               ],
             )
           ],
