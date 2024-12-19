@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:go_router/go_router.dart';
 import 'package:workout_tracker/firebase_auth_service.dart';
 import 'package:workout_tracker/show_snackbar.dart';
 
@@ -145,7 +145,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_auth.isLoggedIn()) {
+                        _auth.singOut().then((_) {
+                          showSnackBar(context, '로그아웃 되었습니다.');
+                          context.go('/settings/login');
+                        }).catchError((e) {
+                          showSnackBar(context, e.toString());
+                        });
+                      } else {
+                        context.go('/settings/login');
+                      }
+                    },
                     child: Text(
                       '로그아웃',
                       style: TextStyle(

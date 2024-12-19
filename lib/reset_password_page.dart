@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:workout_tracker/firebase_auth_service.dart';
+import 'package:workout_tracker/show_snackbar.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   ResetPasswordPage({super.key});
 
+  final _auth = FirebaseAuthService();
   final _formKey = GlobalKey<FormState>();
   String? email;
 
@@ -41,6 +44,7 @@ class ResetPasswordPage extends StatelessWidget {
                       floatingLabelBehavior:
                           FloatingLabelBehavior.always, //label이 항상 위로 올라오게 함
                     ),
+                    keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return '이메일을 입력해 주세요.';
@@ -63,6 +67,12 @@ class ResetPasswordPage extends StatelessWidget {
                         if (_formKey.currentState?.validate() ?? false) {
                           _formKey.currentState?.save(); //save를 해줘야 입력한 값이 저장됨
                           // _formKey.currentState?.reset(); //reset을 해줘야 입력한 값이 지워짐
+                          _auth.resetPassword(email: email!).then((_){
+                            showSnackBar(context, '비밀번호 재설정 이메일이 전송되었습니다.');
+                          }).catchError((e){
+                            showSnackBar(context, e.toString());
+                          });
+
                         }
                       },
                       child: Text('비밀번호 재설정 이메일 보내기'),

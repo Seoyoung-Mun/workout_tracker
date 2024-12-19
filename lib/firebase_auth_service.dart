@@ -9,7 +9,8 @@ class FirebaseAuthService {
     // 이 방식은 final 변수나 private 변수를 생성자에서 초기화할 때 주로 사용
     _auth.setLanguageCode('kr'); // 로그인 페이지의 언어를 한국어로 설정
   }
-    User? get user => _auth.currentUser; // 현재 로그인한 유저의 정보를 가져와 user 변수에 저장
+
+  User? get user => _auth.currentUser; // 현재 로그인한 유저의 정보를 가져와 user 변수에 저장
 
   Future<void> signUpWithEmail({
     required String email,
@@ -93,15 +94,15 @@ class FirebaseAuthService {
     }
   }
 
-  Future<void> resetPassword({required String email,}) async {
+  Future<void> resetPassword({
+    required String email,
+  }) async {
     String? errorMessage;
     //비밀번호 재설정
     try {
       await _auth.sendPasswordResetEmail(email: email);
       print('비밀번호 재설정 이메일이 전송되었습니다.');
     } on FirebaseAuthException catch (error) {
-      String? errorMessage;
-
       switch (error.code) {
         case 'auth/user-not-found':
           errorMessage = '해당 이메일로 가입된 사용자가 없습니다.';
@@ -112,33 +113,31 @@ class FirebaseAuthService {
         default:
           errorMessage = error.message ?? '알 수 없는 오류가 발생했습니다.';
       }
-    }catch (error) {
+    } catch (error) {
       errorMessage = '알 수 없는 오류가 발생했습니다.';
     }
     if (errorMessage != null) {
       throw Exception(errorMessage);
     }
-
   }
 
-
-Future<void> deleteAccount() async {
-  //회원탈퇴
-}
-
-Future<void> singOut() async {
-  //로그아웃
-  try {
-    await _auth.signOut();
-  } catch (e) {
-    throw WTException(e.toString());
+  Future<void> deleteAccount() async {
+    //회원탈퇴
   }
-}
 
-bool isLoggedIn() {
-  //로그인 여부 확인
-  return _auth.currentUser != null;
-}
+  Future<void> singOut() async {
+    //로그아웃
+    try {
+      await _auth.signOut();
+    } catch (e) {
+      throw WTException(e.toString());
+    }
+  }
+
+  bool isLoggedIn() {
+    //로그인 여부 확인
+    return _auth.currentUser != null;
+  }
 
   Future<void> updateName(String? name) async {
     //유저 이름 수정
@@ -148,4 +147,5 @@ bool isLoggedIn() {
       throw Exception('수정 실패:$e');
     }
   }
+
 }
