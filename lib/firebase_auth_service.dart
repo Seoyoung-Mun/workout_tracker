@@ -139,13 +139,15 @@ class FirebaseAuthService {
     return _auth.currentUser != null;
   }
 
-  Future<void> updateName(String? name) async {
+  Future<void> updateName(String? displayName) async {
     //유저 이름 수정
     try {
-      await _auth.currentUser?.updateDisplayName(name);
+      await _auth.currentUser?.updateDisplayName(displayName);
     } catch (e) {
       throw Exception('수정 실패:$e');
     }
   }
+
+
 
 }

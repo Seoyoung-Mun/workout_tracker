@@ -125,8 +125,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     if (_formKey.currentState?.validate() ?? false) {
                       _formKey.currentState?.save();
                       _auth.updateName(name).then((_) {
+                        //여기서 updateName을 호출하게 된다.
+                        //그럼 이제 이메일 인증이 되어있는 상태에서만 수정이 가능하게 된다.
                         showSnackBar(context, '수정 되었습니다.');
                       }).catchError((e) {
+                        //에러가 나면 에러를 보여준다.
                         showSnackBar(context, e.toString());
                       });
                     }

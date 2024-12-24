@@ -25,17 +25,21 @@ final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   redirect: (context, state) {
     //redirect에서 페이지를 제한
-    User? user = FirebaseAuth.instance.currentUser;
+    //왜 제한하냐면, 로그인을 하지 않은 사용자가 로그인한 사용자만 볼 수 있는 페이지로 가려고 할때
+    //로그인 페이지로 리디렉션 하게 만든다.
+    User? user = FirebaseAuth.instance.currentUser; //로그인 사용자의 정보를 가져온다.
+    //로그인 사용자가 없고 로그인 페이지로 가려고 할때 로그인 페이지로 리디렉션
     if (user == null &&
         (state.uri.path != '/settings/login/registration' &&
             state.uri.path != '/settings/login/reset_password') &&
         state.uri.path != '/') {
       return '/settings/login';
     }
+    //로그인 사용자가 있고 로그인 페이지로 가려고 할때 메인 페이지로 리디렉션
     if (user != null &&
         (state.uri.path == '/settings/login' ||
             state.uri.path == '/settings/reset_password')) {
-      return 'settings';
+      return '/settings';
     }
   },
   routes: [
