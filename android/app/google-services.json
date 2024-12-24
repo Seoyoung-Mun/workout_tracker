@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:632681974624:android:22139a5815ebe1e27c6c05",
+        "android_client_info": {
+          "package_name": "com.seoyoung.workout_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAntGnfApX-vTqW0sHuuM85VDMcUMKOL5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:632681974624:android:825d8bb48af840537c6c05",
         "android_client_info": {
           "package_name": "com.workout_tracker"
