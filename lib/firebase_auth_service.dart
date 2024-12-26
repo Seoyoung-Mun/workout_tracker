@@ -30,7 +30,7 @@ class FirebaseAuthService {
       //회원가입 실패 시 에러 처리
       print(error);
       switch (error.code) {
-      //공식문서(https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/signInWithEmailAndPassword.html)에서 참고한 에러 코드
+        //공식문서(https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/signInWithEmailAndPassword.html)에서 참고한 에러 코드
         case 'weak-password':
           errorMessage = '비밀번호가 취약합니다. 최소 6자리 이상의 문자를 입력하세요.';
           break;
@@ -148,6 +148,21 @@ class FirebaseAuthService {
     }
   }
 
+  Future<void> updatePhotoUrl(String? photoUrl) async {
+    //유저 이름 수정
+    try {
+      await _auth.currentUser?.updatePhotoURL(photoUrl);
+    } catch (e) {
+      throw Exception('수정 실패:$e');
+    }
+  }
 
-
+  Future<void> deletePhotoUrl() async {
+    //유저 이름 수정
+    try {
+      await _auth.currentUser?.updatePhotoURL(null);
+    } catch (e) {
+      throw Exception('수정 실패:$e');
+    }
+  }
 }

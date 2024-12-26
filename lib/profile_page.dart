@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:workout_tracker/firebase_auth_service.dart';
+import 'package:workout_tracker/firebase_storage_service.dart';
 import 'package:workout_tracker/show_snackbar.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -17,6 +19,9 @@ class _ProfilePageState extends State<ProfilePage> {
   String? profileImageURL = 'https://healthyclass.kr/sample.jpg'; //예시
 
   final _auth = FirebaseAuthService();
+  final ImagePicker _picker = ImagePicker();
+  final _storage = FirebaseStorageService();
+  bool isUploading = false;
 
   @override
   void initState() {
@@ -25,6 +30,30 @@ class _ProfilePageState extends State<ProfilePage> {
     name = _auth.user?.displayName;
     email = _auth.user?.email;
     profileImageURL = _auth.user?.photoURL;
+  }
+
+  Future<void> _pickImage() async {
+    setState(() {
+      isUploading = true;
+    });
+    try {
+      final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        //storage upload
+        String downloadUrl = await _storage.uploadProfileImage(
+            await pickedFile.readAsBytes(), pickedFile.path, _auth.user?.uid);
+        //auth에 downloadUrl update, photoURL update
+        _auth.updatePhotoUrl(downloadUrl);
+
+        //완료 안내
+        profileImageURL = downloadUrl;
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    setState(() {
+      isUploading = false;
+    });
   }
 
   @override
@@ -41,24 +70,62 @@ class _ProfilePageState extends State<ProfilePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Flexible(
-                child: CircleAvatar(
-                  radius: 60,
-                  backgroundImage: profileImageURL != null
-                      ? NetworkImage(profileImageURL!)
-                      : const AssetImage('assets/me.jpg'),
-                  onBackgroundImageError: (_, __) {
-                    if (profileImageURL != null) {
-                      setState(() {
-                        profileImageURL = null;
-                      });
-                    }
-                    //WidgetsBinding이하로 작동되지 않아 주석처리. if문으로 대체
-                    // WidgetsBinding.instance.addPostFrameCallback((_){
-                    //   setState(() {
-                    //     profileImageURL = null;
-                    //   });
-                    // });
-                  },
+                child: Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: _pickImage,
+                      child: CircleAvatar(
+                        radius: 60,
+                        backgroundImage: profileImageURL != null
+                            ? NetworkImage(profileImageURL!)
+                            : const AssetImage('assets/me.jpg'),
+                        onBackgroundImageError: (_, __) {
+                          if (profileImageURL != null) {
+                            setState(() {
+                              profileImageURL = null;
+                            });
+                          }
+                          //WidgetsBinding이하로 작동되지 않아 주석처리. if문으로 대체
+                          // WidgetsBinding.instance.addPostFrameCallback((_){
+                          //   setState(() {
+                          //     profileImageURL = null;
+                          //   });
+                          // });
+                        },
+                        child: isUploading
+                            ? CircularProgressIndicator()
+                            : Icon(Icons.camera_alt,
+                                size: 30, color: Colors.white),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(
+                            color: Colors.grey, shape: BoxShape.circle),
+                        child: Center(
+                          child: IconButton(
+                              padding: EdgeInsets.zero,
+                              onPressed: () async {
+                                try {
+                                  await _auth.deletePhotoUrl();
+                                  await _storage
+                                      .deleteProfileImage(_auth.user?.uid);
+                                } catch (e) {
+                                  showSnackBar(context, e.toString());
+                                }
+                                setState(() {
+                                  profileImageURL = null;
+                                });
+                              },
+                              icon: Icon(Icons.close)),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               TextFormField(
