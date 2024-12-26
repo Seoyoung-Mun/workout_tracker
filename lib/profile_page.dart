@@ -18,8 +18,8 @@ class _ProfilePageState extends State<ProfilePage> {
   String? name;
   String? email;
   String? profileImageURL;
-  final _passwordController = TextEditingController();
   final _auth = FirebaseAuthService();
+  final _passwordController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   final _storage = FirebaseStorageService();
   bool isUploading = false;
@@ -30,7 +30,6 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     name = _auth.user?.displayName;
     email = _auth.user?.email;
-    profileImageURL = _auth.user?.photoURL;
   }
 
   Future<void> _pickImage() async {
@@ -96,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: isUploading
                             ? CircularProgressIndicator()
                             : Icon(Icons.camera_alt,
-                                size: 30, color: Colors.white),
+                            size: 30, color: Colors.white),
                       ),
                     ),
                     Positioned(
@@ -160,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     return '이메일을 입력하세요.';
                   }
                   if (!RegExp(
-                          r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$')
+                      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$')
                       .hasMatch(value)) {
                     return '이메일 형식으로 입력해주세요.';
                   }
@@ -192,7 +191,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       'Send Email',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme
+                            .of(context)
+                            .colorScheme
+                            .primary,
                       ),
                     ),
                   ),
@@ -217,7 +219,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Text('수정'),
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 15.0),
-                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Theme
+                        .of(context)
+                        .colorScheme
+                        .primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -247,7 +252,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Text(
                       '로그아웃',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme
+                            .of(context)
+                            .colorScheme
+                            .primary,
                       ),
                     ),
                   ),
@@ -267,12 +275,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       } catch (e) {
                         showSnackBar(context, e.toString());
                       }
-
                     },
                     child: Text(
                       '회원탈퇴',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme
+                            .of(context)
+                            .colorScheme
+                            .primary,
                       ),
                     ),
                   ),

@@ -214,4 +214,8 @@ class FirebaseAuthService {
       throw Exception('메일 발송 실패');
     }
   }
+
+  Stream<User?> userChangesStream() {
+    return _auth.userChanges();
+  }
 }

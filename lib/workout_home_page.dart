@@ -32,6 +32,11 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
     todayWorkoutTimeFuture = WorkoutManager.getTodayWorkoutTime();
     todayKcalFuture = WorkoutManager.getTodayKcalorie();
     profileImageURL = _auth.user?.photoURL;
+    _auth.userChangesStream().listen((user) {
+      setState(() {
+        profileImageURL = user?.photoURL;
+      });
+    });
   }
 
   @override
