@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:workout_tracker/animated_icon_widget.dart';
 import 'package:workout_tracker/animated_text_carousel.dart';
 import 'package:workout_tracker/dashboard_card.dart';
+import 'package:workout_tracker/firebase_auth_service.dart';
 import 'package:workout_tracker/workout_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workout_tracker/animation_practice_widget.dart';
@@ -18,6 +19,10 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
   late Future<int> monthlyCountFuture;
   late Future<int> todayWorkoutTimeFuture;
   late Future<int> todayKcalFuture;
+
+  final FirebaseAuthService _auth = FirebaseAuthService();
+  String? profileImageURL;
+
   @override
   void initState() {
     //화면이 생성될 때
@@ -26,6 +31,7 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
     monthlyCountFuture = WorkoutManager.getMonthlyWorkoutCount();
     todayWorkoutTimeFuture = WorkoutManager.getTodayWorkoutTime();
     todayKcalFuture = WorkoutManager.getTodayKcalorie();
+    profileImageURL = _auth.user?.photoURL;
   }
 
   @override
@@ -62,7 +68,15 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                       color: Colors.orange,
                     ),
                     image: DecorationImage(
-                      image: AssetImage('assets/me.jpg'),
+                      image: profileImageURL != null
+                          ? NetworkImage(profileImageURL!)
+                          : AssetImage('assets/me.jpg'),
+                      onError: (_, __) {
+                        setState(() {
+                          profileImageURL = null;
+                        });
+                      },
+                      fit: BoxFit.cover, //이미지가 원하는 곳에 맞게 잘리도록
                     ),
                   ),
                 )
@@ -255,7 +269,8 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                             ),
                             info: Expanded(
                               child: Text(
-                                WorkoutManager.workoutGroups[0].groupDescription,
+                                WorkoutManager
+                                    .workoutGroups[0].groupDescription,
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge
@@ -297,7 +312,8 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
                             ),
                             info: Expanded(
                               child: Text(
-                                WorkoutManager.workoutGroups[1].groupDescription,
+                                WorkoutManager
+                                    .workoutGroups[1].groupDescription,
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge

@@ -121,8 +121,40 @@ class FirebaseAuthService {
     }
   }
 
+  Future<void> reauthenticateAndDeleteAccount(String password) async {
+    final email = _auth.currentUser?.email;
+    String? errorMessage;
+    try {
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email!, password: password);
+      await _auth.currentUser?.reauthenticateWithCredential(credential);
+      await _auth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        errorMessage = '해당 이메일 주소를 가진 사용자가 없습니다.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = '비밀번호가 틀렸습니다.';
+      } else {
+        errorMessage = '알 수 없는 오류가 발생했습니다.';
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
   Future<void> deleteAccount() async {
     //회원탈퇴
+    try {
+      await _auth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        rethrow;
+      } else {
+        throw Exception('탈퇴 과정에 오류가 있습니다.');
+      }
+    } catch (e) {
+      throw Exception('탈퇴오류');
+    }
   }
 
   Future<void> singOut() async {

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,8 +17,8 @@ class _ProfilePageState extends State<ProfilePage> {
   final _formKey = GlobalKey<FormState>();
   String? name;
   String? email;
-  String? profileImageURL = 'https://healthyclass.kr/sample.jpg'; //예시
-
+  String? profileImageURL;
+  final _passwordController = TextEditingController();
   final _auth = FirebaseAuthService();
   final ImagePicker _picker = ImagePicker();
   final _storage = FirebaseStorageService();
@@ -252,7 +253,22 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Text('|'),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      try {
+                        await _auth.deleteAccount();
+                        showSnackBar(context, '탈퇴처리가 완료되었습니다.');
+                        context.go('/settings/login');
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'requires-recent-login') {
+                          showReauthenticationDialog();
+                        } else {
+                          showSnackBar(context, e.toString());
+                        }
+                      } catch (e) {
+                        showSnackBar(context, e.toString());
+                      }
+
+                    },
                     child: Text(
                       '회원탈퇴',
                       style: TextStyle(
@@ -267,5 +283,41 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
+
+  Future<String?> showReauthenticationDialog() async {
+    return showDialog<String>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('비밀번호 확인'),
+            content: TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Enter your password',
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('취소'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final password = _passwordController.text;
+                  try {
+                    await _auth.reauthenticateAndDeleteAccount(password);
+                    context.go('/settings/login');
+                  } catch (e) {
+                    showSnackBar(context, e.toString());
+                  }
+                },
+                child: Text('탈퇴하기'),
+              ),
+            ],
+          );
+        });
   }
 }
