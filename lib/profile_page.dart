@@ -104,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Container(
                         width: 35,
                         height: 35,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.grey, shape: BoxShape.circle),
                         child: Center(
                           child: IconButton(
@@ -130,7 +130,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               TextFormField(
                 initialValue: name,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     labelText: 'name',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.person)),
@@ -146,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               TextFormField(
                 initialValue: email, // 이메일 기본값으로 설정
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   enabled: false,
                   // input 비활성화
                   labelText: 'Email',
@@ -230,10 +230,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     onPressed: () async {
                       if (_auth.isLoggedIn()) {
                         await _auth.singOut().then((_) {
-                          showSnackBar(context, '로그아웃 되었습니다.');
-                          context.go('/settings/login');
+                          if (context.mounted) {
+                            showSnackBar(context, '로그아웃 되었습니다.');
+                            context.go('/settings/login');
+                          }
                         }).catchError((e) {
-                          showSnackBar(context, e.toString());
+                          if (context.mounted) {
+                            showSnackBar(context, e.toString());
+                          } //mounted 체크
                         });
                       } else {
                         context.go('/settings/login');
