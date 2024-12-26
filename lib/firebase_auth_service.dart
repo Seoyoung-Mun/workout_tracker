@@ -165,4 +165,21 @@ class FirebaseAuthService {
       throw Exception('수정 실패:$e');
     }
   }
+
+  Future<void> sendVerificationEmail() async {
+    // 인증 이메일 다시 보내기
+    // if(_auth.currentUser == null) {
+    //   throw Exception('로그인이 필요합니다.');
+    // }
+    // if (!_auth.currentUser!.emailVerified) {
+    //   _auth.currentUser?.sendEmailVerification();
+    // }
+    try {
+      if (!(_auth.currentUser?.emailVerified ?? false)) {
+        _auth.currentUser?.sendEmailVerification();
+      }
+    } catch (e) {
+      throw Exception('메일 발송 실패');
+    }
+  }
 }

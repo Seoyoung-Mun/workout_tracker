@@ -174,7 +174,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Text('이메일인증을 아직 안하셨나요?'),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (_auth.user?.emailVerified ?? false) {
+                        showSnackBar(context, '이미 인증되었습니다.');
+                        return;
+                      }
+
+                      try {
+                        await _auth.sendVerificationEmail();
+                        showSnackBar(context, '인증 이메일이 전송 되었습니다.');
+                      } catch (e) {
+                        showSnackBar(context, e.toString());
+                      }
+                    },
                     child: Text(
                       'Send Email',
                       style: TextStyle(
@@ -215,9 +227,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_auth.isLoggedIn()) {
-                        _auth.singOut().then((_) {
+                        await _auth.singOut().then((_) {
                           showSnackBar(context, '로그아웃 되었습니다.');
                           context.go('/settings/login');
                         }).catchError((e) {
