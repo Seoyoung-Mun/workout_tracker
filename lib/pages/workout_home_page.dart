@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:workout_tracker/animated_icon_widget.dart';
-import 'package:workout_tracker/animated_text_carousel.dart';
-import 'package:workout_tracker/dashboard_card.dart';
-import 'package:workout_tracker/firebase_auth_service.dart';
-import 'package:workout_tracker/workout_manager.dart';
+import 'package:workout_tracker/widgets/animated_icon_widget.dart';
+import 'package:workout_tracker/widgets/animated_text_carousel.dart';
+import 'package:workout_tracker/widgets/dashboard_card.dart';
+import 'package:workout_tracker/services/firebase_auth_service.dart';
+import 'package:workout_tracker/logic/workout_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:workout_tracker/animation_practice_widget.dart';
+import 'package:workout_tracker/pages/animation_practice_widget.dart';
 
 class WorkoutHomePage extends StatefulWidget {
   WorkoutHomePage({super.key});

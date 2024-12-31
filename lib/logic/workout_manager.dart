@@ -1,7 +1,7 @@
-import 'package:workout_tracker/workout_group.dart';
+import 'package:workout_tracker/models/workout_group.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'workout.dart';
+import '../models/workout.dart';
 
 class WorkoutManager {
   static int? currentWorkoutGroupIndex;
