@@ -244,6 +244,33 @@ class WorkoutHomePageState extends State<WorkoutHomePage> {
               ),
             ),
             Expanded(
+              flex: 3,
+              child: DashboardCard(
+                customOnTap: () {
+                  context.go(
+                      '/workout_home/my_workout_list');
+                },
+                icon: Icon(Icons.list,
+                    size: Theme.of(context).textTheme.headlineSmall?.fontSize,
+                    color: Theme.of(context).colorScheme.primary),
+                title: Text(
+                  '나만의 운동',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary),
+                ),
+                info: Expanded(
+                  child: Text(
+                    '자신의 운동을 설계하세요.',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
+                ),
+                backgraoundColor: Theme.of(context).colorScheme.tertiaryContainer,
+              ),
+            ),
+            Expanded(
               flex: 4,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

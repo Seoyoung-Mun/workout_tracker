@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/workout.dart';
 
+//controller의 역할
 class WorkoutManager {
   static int? currentWorkoutGroupIndex;
   static List<Workout> workouts = [

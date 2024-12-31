@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_tracker/pages/landing_page.dart';
 import 'package:workout_tracker/pages/frame_page.dart';
+import 'package:workout_tracker/pages/my_workout_list_page.dart';
 import 'package:workout_tracker/pages/profile_page.dart';
 import 'package:workout_tracker/pages/reset_password_page.dart';
 import 'package:workout_tracker/pages/workout_home_page.dart';
@@ -63,6 +64,10 @@ final GoRouter router = GoRouter(
               path: '/workout_home',
               builder: (context, state) => WorkoutHomePage(),
               routes: [
+                GoRoute(
+                  path: 'my_workout_list',
+                  builder: (context, state) => MyWorkoutListPage(),
+                ),
                 GoRoute(
                   path: 'workout_list/:group_index',
                   builder: (context, state) {
