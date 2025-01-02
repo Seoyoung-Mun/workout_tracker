@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:workout_tracker/models/workout.dart';
 
 class AddWorkoutDialog extends StatelessWidget {
-  AddWorkoutDialog({super.key});
+  void Function(Workout) addWorkoutCallback; //프로퍼티 정의
+  AddWorkoutDialog({super.key, required this.addWorkoutCallback});
 
   String? newWorkoutTitle;
   String? newWorkoutImageUrl;
@@ -17,7 +19,8 @@ class AddWorkoutDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
         color: Colors.white,
       ),
-      child: SingleChildScrollView( //command k 로 키보드 올려서 화면 확인 후 스크롤뷰 추가
+      child: SingleChildScrollView(
+        //command k 로 키보드 올려서 화면 확인 후 스크롤뷰 추가
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -113,6 +116,13 @@ class AddWorkoutDialog extends StatelessWidget {
                       print(newWorkoutAudioUrl);
                       print(newWorkoutMinutes);
                       print(newWorkoutKcal);
+                      Workout workout3 = Workout(
+                          name: newWorkoutTitle!,
+                          minutes: newWorkoutMinutes,
+                          imageName: newWorkoutImageUrl!,
+                          audioName: newWorkoutAudioUrl!,
+                          kcal: newWorkoutKcal);
+                      addWorkoutCallback(workout3); //부모에서 정의된 함수 호출
                       context.pop();
                       //gorouter에서 Navigator.pop(context); 과 같음
                     },

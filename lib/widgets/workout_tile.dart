@@ -26,7 +26,7 @@ class WorkoutTile extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: AssetImage('assets/${image}'),
+              image: NetworkImage('${image}'),
             ),
           ),
         ),
