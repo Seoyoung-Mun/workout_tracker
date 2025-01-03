@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workout_tracker/models/days_of_week.dart';
 import 'package:workout_tracker/pages/add_workout_dialog.dart';
 import 'package:workout_tracker/services/firebase_storage_service.dart';
 import 'package:workout_tracker/widgets/dashboard_card.dart';
@@ -55,6 +56,9 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
                 setState(() {
                   workouts.removeAt(index);
                 });
+              },
+              updateWorkoutDaysFromList: (Set<DaysOfWeek>? workoutDays){
+                workouts[index].workoutDays = workoutDays;
               });
         },
       ),
@@ -64,14 +68,15 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
             context: context,
             builder: (context) => Dialog(
               backgroundColor: Colors.transparent,
-              child: AddWorkoutDialog(addWorkoutCallback: (Workout w3) {
-                setState(() {
-                  // print(w3);
+              child: AddWorkoutDialog(
+                addWorkoutCallback: (Workout workout3) {
+                  setState(() {
+                    // print(w3);
 
-                  workouts.add(w3);
-                });
-              } //콜백함수 정의
-                  ),
+                    workouts.add(workout3);
+                  });
+                }, //콜백함수 정의
+              ),
             ),
           );
         },

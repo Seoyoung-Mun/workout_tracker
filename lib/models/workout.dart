@@ -21,7 +21,7 @@ class Workout {
     //디버깅용 toString
     // TODO: implement toString
     return 'name:${name}, minutes:${minutes}, imageName:${imageName}, audioName:${audioName}, kcal:${kcal}';
-    return super.toString();
+    // return super.toString();
   }
 }
 //Model의 역할

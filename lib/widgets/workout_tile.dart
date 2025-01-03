@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workout_tracker/models/days_of_week.dart';
 import 'package:workout_tracker/widgets/workout_day_selector.dart';
 
 class WorkoutTile extends StatelessWidget {
@@ -8,6 +9,7 @@ class WorkoutTile extends StatelessWidget {
   final int minutes;
 
   final void Function(int) deleteWorkout;
+  final void Function(Set<DaysOfWeek>?) updateWorkoutDaysFromList;
 
   WorkoutTile({
     super.key,
@@ -16,6 +18,7 @@ class WorkoutTile extends StatelessWidget {
     required this.image,
     required this.minutes,
     required this.deleteWorkout,
+    required this.updateWorkoutDaysFromList,
   });
 
   @override
@@ -54,7 +57,11 @@ class WorkoutTile extends StatelessWidget {
                 icon: const Icon(Icons.delete_outline, size: 22))
           ],
         ),
-        WorkoutDaySelector(),
+        WorkoutDaySelector(
+            updateWorkoutDays: (Set<DaysOfWeek>? workoutDays){
+              updateWorkoutDaysFromList(workoutDays);
+            },
+        ),
       ],
     );
   }

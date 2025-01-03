@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:workout_tracker/models/days_of_week.dart';
 
 class WorkoutDaySelector extends StatefulWidget {
-  WorkoutDaySelector({super.key});
+  final void Function(Set<DaysOfWeek>?) updateWorkoutDays;
+
+  WorkoutDaySelector({super.key, required this.updateWorkoutDays});
 
   @override
   State<WorkoutDaySelector> createState() => _WorkoutDaySelectorState();
@@ -13,6 +15,21 @@ class _WorkoutDaySelectorState extends State<WorkoutDaySelector> {
 
   void updateIsSelected(int index) {
     isSelected[index] = !isSelected[index];
+    //함수 호출부에 widget.을 붙여야 하는 이유는 StatefulWidget의 멤버 변수에 접근하기 위해서
+    widget.updateWorkoutDays(changeIsSelectedToWorkoutDays(isSelected));
+  }
+
+  Set<DaysOfWeek> changeIsSelectedToWorkoutDays(List<bool>? isSelected){
+    Set<DaysOfWeek> selectedWorkoutDays = {};
+    if(isSelected == null){
+      return selectedWorkoutDays;
+    }
+    for (var weekDay in DaysOfWeek.values){
+      if (isSelected[weekDay.index]){
+        selectedWorkoutDays.add(weekDay);
+      }
+    }
+    return selectedWorkoutDays;
   }
 
   @override
