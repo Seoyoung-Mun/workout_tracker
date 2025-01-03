@@ -7,6 +7,7 @@ class WorkoutTile extends StatelessWidget {
   final String name;
   final String image;
   final int minutes;
+  final Set<DaysOfWeek> workoutDays;
 
   final void Function(int) deleteWorkout;
   final void Function(Set<DaysOfWeek>?) updateWorkoutDaysFromList;
@@ -17,6 +18,7 @@ class WorkoutTile extends StatelessWidget {
     required this.name,
     required this.image,
     required this.minutes,
+    required this.workoutDays,
     required this.deleteWorkout,
     required this.updateWorkoutDaysFromList,
   });
@@ -58,8 +60,8 @@ class WorkoutTile extends StatelessWidget {
           ],
         ),
         WorkoutDaySelector(
-            updateWorkoutDays: updateWorkoutDaysFromList
-            ,
+          workoutDays: workoutDays,
+            updateWorkoutDays: updateWorkoutDaysFromList,
         ),
       ],
     );

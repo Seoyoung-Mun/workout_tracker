@@ -3,8 +3,9 @@ import 'package:workout_tracker/models/days_of_week.dart';
 
 class WorkoutDaySelector extends StatefulWidget {
   final void Function(Set<DaysOfWeek>?) updateWorkoutDays;
+  final Set<DaysOfWeek> workoutDays;
 
-  WorkoutDaySelector({super.key, required this.updateWorkoutDays});
+  WorkoutDaySelector({super.key, required this.updateWorkoutDays, required this.workoutDays});
 
   @override
   State<WorkoutDaySelector> createState() => _WorkoutDaySelectorState();
@@ -32,6 +33,23 @@ class _WorkoutDaySelectorState extends State<WorkoutDaySelector> {
     return selectedWorkoutDays;
   }
 
+  List<bool> changeWorkoutDaysToIsSelected(Set<DaysOfWeek>? workoutDays){
+    List<bool> isSelected = List.filled(7, false);
+    if (workoutDays == null){
+      return isSelected;
+    }
+    for (var week in workoutDays){
+      isSelected[week.index] = true;
+    }
+    return isSelected;
+  }
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isSelected = changeWorkoutDaysToIsSelected(widget.workoutDays);
+  }
   @override
   Widget build(BuildContext context) {
     //isSelected[2] = true; //목요일을 선택한 것으로 나오게 test
