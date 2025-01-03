@@ -5,6 +5,7 @@ class WorkoutTile extends StatelessWidget {
   final String name;
   final String image;
   final int minutes;
+  final void Function(int) deleteWorkout;
 
   WorkoutTile({
     super.key,
@@ -12,6 +13,7 @@ class WorkoutTile extends StatelessWidget {
     required this.name,
     required this.image,
     required this.minutes,
+    required this.deleteWorkout,
   });
 
   @override
@@ -42,6 +44,10 @@ class WorkoutTile extends StatelessWidget {
           child: Text('${minutes}분',
               style: TextStyle(fontSize: 20, color: Colors.blue)),
         ),
+        IconButton(onPressed: () {
+          deleteWorkout(index);
+        },
+            icon: const Icon(Icons.delete_outline, size: 22))
       ],
     );
   }

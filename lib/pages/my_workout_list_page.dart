@@ -50,7 +50,12 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
               index: index,
               name: workouts[index].name,
               image: workouts[index].imageName,
-              minutes: workouts[index].minutes);
+              minutes: workouts[index].minutes,
+              deleteWorkout: (int index) {
+                setState(() {
+                  workouts.removeAt(index);
+                });
+              });
         },
       ),
       floatingActionButton: FloatingActionButton(
