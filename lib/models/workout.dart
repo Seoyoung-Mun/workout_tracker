@@ -1,24 +1,28 @@
+import 'package:workout_tracker/models/days_of_week.dart';
+
 class Workout {
   String name;
   int minutes;
   String imageName;
   String audioName;
   int kcal;
+  Set<DaysOfWeek>? workoutDays;
 
-  Workout({
-    required this.name,
-    required this.minutes,
-    required this.imageName,
-    required this.audioName,
-    required this.kcal
+  Workout({required this.name,
+      required this.minutes,
+      required this.imageName,
+      required this.audioName,
+      required this.kcal,
+      this.workoutDays
   });
-@override
-  String toString() {
-    // TODO: implement toString
-  return 'name:${name}, minutes:${minutes}, imageName:${imageName}, audioName:${audioName}, kcal:${kcal}';
-  return super.toString();
-  }
 
+  @override
+  String toString() {
+    //디버깅용 toString
+    // TODO: implement toString
+    return 'name:${name}, minutes:${minutes}, imageName:${imageName}, audioName:${audioName}, kcal:${kcal}';
+    return super.toString();
+  }
 }
 //Model의 역할
 //데이터 구조 정의: 데이터베이스의 JSON 데이터를 애플리케이션에서 사용하기 위한 객체 형태로 정의합니다.
