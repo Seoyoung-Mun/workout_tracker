@@ -58,9 +58,8 @@ class WorkoutTile extends StatelessWidget {
           ],
         ),
         WorkoutDaySelector(
-            updateWorkoutDays: (Set<DaysOfWeek>? workoutDays){
-              updateWorkoutDaysFromList(workoutDays);
-            },
+            updateWorkoutDays: updateWorkoutDaysFromList
+            ,
         ),
       ],
     );
