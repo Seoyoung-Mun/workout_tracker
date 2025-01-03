@@ -27,7 +27,7 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
           'https://firebasestorage.googleapis.com/v0/b/workout-tracker-5b016.firebasestorage.app/o/workout_images%2F01081301-Barbell-Standing-Leg-Calf-Raise_Calf_360%20Small.jpeg?alt=media&token=307ea3ab-d359-45ec-b31b-463fe9b82312',
       audioName: 'squat.mp3',
       kcal: 200,
-      workoutDays: {DaysOfWeek.monday},
+      workoutDays: {DaysOfWeek.monday, DaysOfWeek.wednesday},
     ),
     Workout(
       name: '사이드런지',
