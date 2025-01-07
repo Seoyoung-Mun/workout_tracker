@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:workout_tracker/models/days_of_week.dart';
-import 'package:workout_tracker/pages/add_workout_dialog.dart';
+import 'package:workout_tracker/pages/simple_state/add_workout_dialog.dart';
 import 'package:workout_tracker/services/firebase_storage_service.dart';
 import 'package:workout_tracker/widgets/dashboard_card.dart';
 import 'package:workout_tracker/models/workout.dart';
 import 'package:go_router/go_router.dart';
 import 'package:workout_tracker/logic/workout_manager.dart';
-import 'package:workout_tracker/widgets/workout_tile.dart';
+import 'package:workout_tracker/pages/simple_state/workout_tile.dart';
 
 class MyWorkoutListPage extends StatefulWidget {
   MyWorkoutListPage({super.key}) {
