@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workout_tracker/logic/provider/workout_provider.dart';
 import 'package:workout_tracker/models/days_of_week.dart';
-import 'package:workout_tracker/pages/simple_state/workout_day_selector.dart';
+import 'package:workout_tracker/pages/provider_state/workout_day_selector.dart';
 
 class WorkoutTile extends StatelessWidget {
   final int index;
@@ -9,7 +11,7 @@ class WorkoutTile extends StatelessWidget {
   final int minutes;
   final Set<DaysOfWeek> workoutDays;
 
-  final void Function(int) deleteWorkout;
+
   final void Function(Set<DaysOfWeek>?) updateWorkoutDaysFromList;
 
   WorkoutTile({
@@ -19,7 +21,7 @@ class WorkoutTile extends StatelessWidget {
     required this.image,
     required this.minutes,
     required this.workoutDays,
-    required this.deleteWorkout,
+
     required this.updateWorkoutDaysFromList,
   });
 
@@ -53,15 +55,17 @@ class WorkoutTile extends StatelessWidget {
               child: Text('${minutes}분',
                   style: TextStyle(fontSize: 20, color: Colors.blue)),
             ),
-            IconButton(onPressed: () {
-              deleteWorkout(index);
-            },
+            IconButton(
+                onPressed: () {
+                  WorkoutProvider workoutProvider = Provider.of<WorkoutProvider>(context, listen: false); //value에 접근하려면 true, 함수에 접근하려면 false
+                  workoutProvider.deleteWorkout(index);
+                },
                 icon: const Icon(Icons.delete_outline, size: 22))
           ],
         ),
         WorkoutDaySelector(
           workoutDays: workoutDays,
-            updateWorkoutDays: updateWorkoutDaysFromList,
+          updateWorkoutDays: updateWorkoutDaysFromList,
         ),
       ],
     );

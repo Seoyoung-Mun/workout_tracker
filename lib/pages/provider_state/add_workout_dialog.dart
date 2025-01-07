@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:workout_tracker/logic/provider/workout_provider.dart';
 import 'package:workout_tracker/models/workout.dart';
 
 class AddWorkoutDialog extends StatelessWidget {
-  void Function(Workout) addWorkoutCallback; //프로퍼티 정의
-
-  AddWorkoutDialog({super.key, required this.addWorkoutCallback});
+  AddWorkoutDialog({super.key});
 
   String? newWorkoutTitle;
   String? newWorkoutImageUrl;
@@ -117,13 +117,14 @@ class AddWorkoutDialog extends StatelessWidget {
                       print(newWorkoutAudioUrl);
                       print(newWorkoutMinutes);
                       print(newWorkoutKcal);
-                      Workout workout3 = Workout(
+                      Workout workoutNew = Workout(
                           name: newWorkoutTitle!,
                           minutes: newWorkoutMinutes,
                           imageName: newWorkoutImageUrl!,
                           audioName: newWorkoutAudioUrl!,
                           kcal: newWorkoutKcal);
-                      addWorkoutCallback(workout3); //부모에서 정의된 함수 호출
+                      WorkoutProvider workoutProvider = Provider.of<WorkoutProvider>(context, listen: false);
+                      workoutProvider.addWorkout(workoutNew);
                       context.pop();
                       //gorouter에서 Navigator.pop(context); 과 같음
                     },
