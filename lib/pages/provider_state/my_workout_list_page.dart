@@ -32,9 +32,6 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
           itemBuilder: (context, index) {
             return WorkoutTile(
               index: index,
-              name: workouts[index].name,
-              image: workouts[index].imageName,
-              minutes: workouts[index].minutes,
             );
           },
         );
