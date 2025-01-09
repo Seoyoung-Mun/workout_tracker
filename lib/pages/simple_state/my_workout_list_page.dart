@@ -76,8 +76,6 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
               child: AddWorkoutDialog(
                 addWorkoutCallback: (Workout workout3) {
                   setState(() {
-                    // print(w3);
-
                     workouts.add(workout3);
                   });
                 }, //콜백함수 정의

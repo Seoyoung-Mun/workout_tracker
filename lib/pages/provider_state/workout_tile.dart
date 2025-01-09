@@ -9,10 +9,6 @@ class WorkoutTile extends StatelessWidget {
   final String name;
   final String image;
   final int minutes;
-  final Set<DaysOfWeek> workoutDays;
-
-
-  final void Function(Set<DaysOfWeek>?) updateWorkoutDaysFromList;
 
   WorkoutTile({
     super.key,
@@ -20,9 +16,6 @@ class WorkoutTile extends StatelessWidget {
     required this.name,
     required this.image,
     required this.minutes,
-    required this.workoutDays,
-
-    required this.updateWorkoutDaysFromList,
   });
 
   @override
@@ -57,15 +50,16 @@ class WorkoutTile extends StatelessWidget {
             ),
             IconButton(
                 onPressed: () {
-                  WorkoutProvider workoutProvider = Provider.of<WorkoutProvider>(context, listen: false); //value에 접근하려면 true, 함수에 접근하려면 false
+                  WorkoutProvider workoutProvider =
+                      Provider.of<WorkoutProvider>(context,
+                          listen: false); //value에 접근하려면 true, 함수에 접근하려면 false
                   workoutProvider.deleteWorkout(index);
                 },
                 icon: const Icon(Icons.delete_outline, size: 22))
           ],
         ),
         WorkoutDaySelector(
-          workoutDays: workoutDays,
-          updateWorkoutDays: updateWorkoutDaysFromList,
+          workoutIndex: index,
         ),
       ],
     );

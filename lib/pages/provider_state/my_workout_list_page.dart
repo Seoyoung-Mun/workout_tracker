@@ -17,10 +17,6 @@ class MyWorkoutListPage extends StatefulWidget {
 }
 
 class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
-  // void addWorkoutCallback(Workout w3){
-  //   // WorkoutProvider().workouts;
-  //   workouts.add(w3);
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,21 +24,18 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
         title: Text('MyWorkoutList'),
         centerTitle: true,
       ),
-      body:Consumer<WorkoutProvider>(
-          builder: (context, workoutProvider, child) {
+      body:
+          Consumer<WorkoutProvider>(builder: (context, workoutProvider, child) {
         List<Workout> workouts = workoutProvider.workouts;
         return ListView.builder(
           itemCount: workouts.length,
           itemBuilder: (context, index) {
             return WorkoutTile(
-                index: index,
-                name: workouts[index].name,
-                image: workouts[index].imageName,
-                minutes: workouts[index].minutes,
-                workoutDays: workouts[index].workoutDays ?? {},
-                updateWorkoutDaysFromList: (Set<DaysOfWeek>? workoutDays) {
-                  workouts[index].workoutDays = workoutDays;
-                });
+              index: index,
+              name: workouts[index].name,
+              image: workouts[index].imageName,
+              minutes: workouts[index].minutes,
+            );
           },
         );
       }),
