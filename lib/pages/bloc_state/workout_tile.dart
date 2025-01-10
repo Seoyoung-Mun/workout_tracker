@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_tracker/models/days_of_week.dart';
-import 'package:workout_tracker/pages/simple_state/workout_day_selector.dart';
+import 'package:workout_tracker/pages/bloc_state/workout_day_selector.dart';
 
 class WorkoutTile extends StatelessWidget {
   final int index;
