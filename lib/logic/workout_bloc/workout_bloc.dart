@@ -9,6 +9,8 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   final WorkoutRepository workoutRepository;
 
   WorkoutBloc(this.workoutRepository) : super(WorkoutInitial()) {
+    //constructor body 안에 4개의 on 메소드를 생성하여
+    //각각의 이벤트에 따른 상태를 어떻게 바꿀지 구현해준다.
     on<LoadWorkouts>((event, emit) async {
       List<Workout> workouts = workoutRepository.fetchWorkouts();
       await Future.delayed(Duration(seconds: 2));
@@ -21,22 +23,23 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       //client state update
       List<Workout> workout = state.workouts;
       workout.add(event.workout);
-      emit(WorkoutLoaded(workout));
+      emit(WorkoutLoaded(workout)); //화면단에 반영하는 부분
     });
     on<UpdateWorkout>((event, emit) async {
-      List<Workout> workouts = state.workouts;
+      // List<Workout> workouts = state.workouts;
       state.workouts[event.workoutIndex].workoutDays =
           changeIsSelectedToWorkoutDays(event.isSelected);
       workoutRepository.updataWorkout(state.workouts[event.workoutIndex]);
-      emit(WorkoutLoaded(workouts));
+      emit(WorkoutLoaded(state.workouts));
     });
     on<DeleteWorkout>((event, emit) async {
-      state.workouts.removeAt(event.workoutIndex);
       workoutRepository.deleteWorkout(event.workoutIndex);
+      state.workouts.removeAt(event.workoutIndex);
       emit(WorkoutLoaded(state.workouts));
     });
   }
 
+  //보조함수
   Set<DaysOfWeek> changeIsSelectedToWorkoutDays(List<bool>? isSelected) {
     Set<DaysOfWeek> selectedWorkoutDays = {};
     if (isSelected == null) {
@@ -50,6 +53,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     return selectedWorkoutDays;
   }
 
+  //보조함수
   List<bool> changeWorkoutDaysToIsSelected(Set<DaysOfWeek>? workoutDays) {
     List<bool> isSelected = List.filled(7, false);
     if (workoutDays == null) {

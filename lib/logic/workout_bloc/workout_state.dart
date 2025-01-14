@@ -2,7 +2,6 @@ import '../../models/workout.dart';
 
 sealed class WorkoutState {
   final List<Workout> workouts;
-
   WorkoutState({required this.workouts});
 }
 
@@ -17,3 +16,5 @@ final class WorkoutLoaded extends WorkoutState {
   // WorkoutLoaded 객체가 생성될 때, 부모 클래스의 workouts 속성이 주어진 리스트로 설정
   WorkoutLoaded(List<Workout> workouts) : super(workouts: workouts);
 }
+
+//이 코드에는 error state는 없지만, 에러처리를 위해 만드는것이 좋음
