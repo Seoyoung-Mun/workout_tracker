@@ -55,24 +55,31 @@ class MyApp extends StatelessWidget {
     //     // home: WorkoutHomePage(),
     //   ),
     // );
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider<WorkoutBloc>(
-          create: (context) => WorkoutBloc(
-            WorkoutRepository(
-              FakeDb(),
-            ),
+        RepositoryProvider<WorkoutRepository>(
+          create: (context) => WorkoutRepository(
+            FakeDb(),
           ),
         ),
       ],
-      child: MaterialApp.router(
-        routerConfig: router,
-        //
-        theme: FlexThemeData.light(scheme: FlexScheme.redWine),
-        //     // home: LandingPage(),
-        //     // home: WorkoutListPage(),
-        //     // home: WorkoutGuidePage(),
-        //     // home: WorkoutHomePage(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<WorkoutBloc>(
+            create: (context) => WorkoutBloc(
+              context.read<WorkoutRepository>(),
+            ),
+          ),
+        ],
+        child: MaterialApp.router(
+          routerConfig: router,
+          //
+          theme: FlexThemeData.light(scheme: FlexScheme.redWine),
+          //     // home: LandingPage(),
+          //     // home: WorkoutListPage(),
+          //     // home: WorkoutGuidePage(),
+          //     // home: WorkoutHomePage(),
+        ),
       ),
     );
   }
