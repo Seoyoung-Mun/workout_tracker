@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workout_tracker/logic/workout_bloc/workout_bloc.dart';
+import 'package:workout_tracker/logic/workout_bloc/workout_event.dart';
 import 'package:workout_tracker/models/days_of_week.dart';
 
 class WorkoutDaySelector extends StatefulWidget {
-  final void Function(Set<DaysOfWeek>?) updateWorkoutDays;
-  final Set<DaysOfWeek> workoutDays;
+  final int workoutIndex;
 
-  WorkoutDaySelector({super.key, required this.updateWorkoutDays, required this.workoutDays});
+  WorkoutDaySelector({super.key, required this.workoutIndex});
 
   @override
   State<WorkoutDaySelector> createState() => _WorkoutDaySelectorState();
@@ -16,43 +18,21 @@ class _WorkoutDaySelectorState extends State<WorkoutDaySelector> {
 
   void updateIsSelected(int index) {
     isSelected[index] = !isSelected[index];
-    //함수 호출부에 widget.을 붙여야 하는 이유는 StatefulWidget의 멤버 변수에 접근하기 위해서
-    // widget.updateWorkoutDays(changeIsSelectedToWorkoutDays(isSelected));
+    context.read<WorkoutBloc>().add(UpdateWorkout(
+        workoutIndex: widget.workoutIndex, isSelected: isSelected));
   }
 
-  // Set<DaysOfWeek> changeIsSelectedToWorkoutDays(List<bool>? isSelected){
-  //   Set<DaysOfWeek> selectedWorkoutDays = {};
-  //   if(isSelected == null){
-  //     return selectedWorkoutDays;
-  //   }
-  //   for (var weekDay in DaysOfWeek.values){
-  //     if (isSelected[weekDay.index]){
-  //       selectedWorkoutDays.add(weekDay);
-  //     }
-  //   }
-  //   return selectedWorkoutDays;
-  // }
-  //
-  // List<bool> changeWorkoutDaysToIsSelected(Set<DaysOfWeek>? workoutDays){
-  //   List<bool> isSelected = List.filled(7, false);
-  //   if (workoutDays == null){
-  //     return isSelected;
-  //   }
-  //   for (var week in workoutDays){
-  //     isSelected[week.index] = true;
-  //   }
-  //   return isSelected;
-  // }
-
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // isSelected = changeWorkoutDaysToIsSelected(widget.workoutDays);
+    isSelected = context.read<WorkoutBloc>().changeWorkoutDaysToIsSelected(
+        context.read<WorkoutBloc>().state.workouts[widget.workoutIndex].workoutDays);
   }
+
   @override
   Widget build(BuildContext context) {
-    //isSelected[2] = true; //목요일을 선택한 것으로 나오게 test
     return ToggleButtons(
       onPressed: (index) {
         setState(() {
