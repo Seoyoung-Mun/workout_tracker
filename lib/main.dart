@@ -49,10 +49,6 @@ class MyApp extends StatelessWidget {
     //     routerConfig: router,
     //
     //     theme: FlexThemeData.light(scheme: FlexScheme.redWine),
-    //     // home: LandingPage(),
-    //     // home: WorkoutListPage(),
-    //     // home: WorkoutGuidePage(),
-    //     // home: WorkoutHomePage(),
     //   ),
     // );
     return MultiRepositoryProvider(
@@ -73,12 +69,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp.router(
           routerConfig: router,
-          //
           theme: FlexThemeData.light(scheme: FlexScheme.redWine),
-          //     // home: LandingPage(),
-          //     // home: WorkoutListPage(),
-          //     // home: WorkoutGuidePage(),
-          //     // home: WorkoutHomePage(),
         ),
       ),
     );

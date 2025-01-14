@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:workout_tracker/logic/workout_bloc/workout_bloc.dart';
+import 'package:workout_tracker/logic/workout_bloc/workout_event.dart';
 import 'package:workout_tracker/models/workout.dart';
 
 class AddWorkoutDialog extends StatelessWidget {
@@ -123,7 +126,10 @@ class AddWorkoutDialog extends StatelessWidget {
                           imageName: newWorkoutImageUrl!,
                           audioName: newWorkoutAudioUrl!,
                           kcal: newWorkoutKcal);
-                      addWorkoutCallback(workout3); //부모에서 정의된 함수 호출
+                      context.read<WorkoutBloc>() //context.read로 bloc을 읽어옴
+                          .add( //add로 event를 추가하면 bloc에서 event를 받아서 state를 바꿔줌
+                        AddWorkout(workout3) //AddWorkout event를 추가하면 bloc에서 AddWorkout event를 받아서 state를 바꿔줌
+                      );
                       context.pop();
                       //gorouter에서 Navigator.pop(context); 과 같음
                     },
