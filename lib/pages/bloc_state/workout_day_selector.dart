@@ -26,7 +26,6 @@ class _WorkoutDaySelectorState extends State<WorkoutDaySelector> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // isSelected = changeWorkoutDaysToIsSelected(widget.workoutDays);
     isSelected = context.read<WorkoutBloc>().changeWorkoutDaysToIsSelected(
         context.read<WorkoutBloc>().state.workouts[widget.workoutIndex].workoutDays);
   }

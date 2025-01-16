@@ -6,9 +6,8 @@ import 'package:workout_tracker/logic/workout_bloc/workout_event.dart';
 import 'package:workout_tracker/models/workout.dart';
 
 class AddWorkoutDialog extends StatelessWidget {
-  void Function(Workout) addWorkoutCallback; //프로퍼티 정의
 
-  AddWorkoutDialog({super.key, required this.addWorkoutCallback});
+  AddWorkoutDialog({super.key});
 
   String? newWorkoutTitle;
   String? newWorkoutImageUrl;

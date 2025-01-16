@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workout_tracker/logic/workout_bloc/workout_bloc.dart';
 import 'package:workout_tracker/logic/workout_bloc/workout_event.dart';
 import 'package:workout_tracker/logic/workout_bloc/workout_state.dart';
-import 'package:workout_tracker/models/days_of_week.dart';
 import 'package:workout_tracker/models/workout.dart';
 import 'package:workout_tracker/pages/bloc_state/workout_day_selector.dart';
 

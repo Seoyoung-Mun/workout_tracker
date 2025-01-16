@@ -3,12 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workout_tracker/logic/workout_bloc/workout_bloc.dart';
 import 'package:workout_tracker/logic/workout_bloc/workout_event.dart';
 import 'package:workout_tracker/logic/workout_bloc/workout_state.dart';
-import 'package:workout_tracker/models/days_of_week.dart';
 import 'package:workout_tracker/pages/bloc_state/add_workout_dialog.dart';
-import 'package:workout_tracker/services/firebase_storage_service.dart';
-import 'package:workout_tracker/widgets/dashboard_card.dart';
 import 'package:workout_tracker/models/workout.dart';
-import 'package:go_router/go_router.dart';
 import 'package:workout_tracker/logic/workout_manager.dart';
 import 'package:workout_tracker/pages/bloc_state/workout_tile.dart';
 
@@ -74,13 +70,6 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
             builder: (context) => Dialog(
               backgroundColor: Colors.transparent,
               child: AddWorkoutDialog(
-                addWorkoutCallback: (Workout workout3) {
-                  setState(() {
-                    // print(w3);
-
-                    // workouts.add(workout3);
-                  });
-                }, //콜백함수 정의
               ),
             ),
           );
