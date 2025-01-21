@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart'; //ChangeNotifier 상속받기 위해
 import 'package:workout_tracker/models/days_of_week.dart';
 import 'package:workout_tracker/models/workout.dart';
+import 'package:workout_tracker/services/firestore_service.dart';
 
 class WorkoutProvider extends ChangeNotifier {
   List<Workout> _workouts = [
@@ -31,6 +32,9 @@ class WorkoutProvider extends ChangeNotifier {
   }
 
   void addWorkout(Workout workout) {
+    final _firestoreService = FirebaseService();
+    _firestoreService.createWorkout(workout);
+
     _workouts.add(workout);
     notifyListeners(); //리스너에게 알려줌 (화면갱신)
   }

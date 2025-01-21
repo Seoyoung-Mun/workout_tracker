@@ -1,6 +1,7 @@
 import 'package:workout_tracker/models/days_of_week.dart';
 
 class Workout {
+  String? id;
   String name;
   int minutes;
   String imageName;
@@ -8,13 +9,25 @@ class Workout {
   int kcal;
   Set<DaysOfWeek>? workoutDays;
 
-  Workout({required this.name,
+  Workout(
+      {this.id,
+      required this.name,
       required this.minutes,
       required this.imageName,
       required this.audioName,
       required this.kcal,
-      this.workoutDays
-  });
+      this.workoutDays});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'kcal': kcal,
+      'minutes': minutes,
+      'imageName': imageName,
+      'workoutDays': workoutDays?.map((day) => day.index).toList()
+    };
+  }
 
   @override
   String toString() {

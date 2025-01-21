@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:workout_tracker/pages/landing_page.dart';
 import 'package:workout_tracker/pages/frame_page.dart';
 // import 'package:workout_tracker/pages/simple_state/my_workout_list_page.dart';
-// import 'package:workout_tracker/pages/provider_state/my_workout_list_page.dart';
-import 'package:workout_tracker/pages/bloc_state/my_workout_list_page.dart';
+import 'package:workout_tracker/pages/provider_state/my_workout_list_page.dart';
+// import 'package:workout_tracker/pages/bloc_state/my_workout_list_page.dart';
 import 'package:workout_tracker/pages/profile_page.dart';
 import 'package:workout_tracker/pages/reset_password_page.dart';
 import 'package:workout_tracker/pages/workout_home_page.dart';
@@ -14,7 +14,7 @@ import 'package:workout_tracker/pages/workout_guide_page.dart';
 import 'package:workout_tracker/pages/settings_page.dart';
 import 'package:workout_tracker/pages/login_page.dart';
 import 'package:workout_tracker/pages/registration_page.dart';
-import 'package:workout_tracker/pages/animation_practice_widget.dart';
+// import 'package:workout_tracker/pages/animation_practice_widget.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');

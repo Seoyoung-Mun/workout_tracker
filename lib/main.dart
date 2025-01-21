@@ -41,37 +41,39 @@ class MyApp extends StatelessWidget {
     // );
 
     //provider
-    // return MultiProvider(
-    //   providers: [
-    //     ChangeNotifierProvider(create: (_) => WorkoutProvider()),
-    //   ],
-    //   child: MaterialApp.router(
-    //     routerConfig: router,
-    //
-    //     theme: FlexThemeData.light(scheme: FlexScheme.redWine),
-    //   ),
-    // );
-    return MultiRepositoryProvider(
+    return MultiProvider(
       providers: [
-        RepositoryProvider<WorkoutRepository>(
-          create: (context) => WorkoutRepository(
-            FakeDb(),
-          ),
-        ),
+        ChangeNotifierProvider(create: (_) => WorkoutProvider()),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<WorkoutBloc>(
-            create: (context) => WorkoutBloc(
-              context.read<WorkoutRepository>(),
-            ),
-          ),
-        ],
-        child: MaterialApp.router(
-          routerConfig: router,
-          theme: FlexThemeData.light(scheme: FlexScheme.redWine),
-        ),
+      child: MaterialApp.router(
+        routerConfig: router,
+
+        theme: FlexThemeData.light(scheme: FlexScheme.redWine),
       ),
     );
+
+    //bloc
+    // return MultiRepositoryProvider(
+    //   providers: [
+    //     RepositoryProvider<WorkoutRepository>(
+    //       create: (context) => WorkoutRepository(
+    //         FakeDb(),
+    //       ),
+    //     ),
+    //   ],
+    //   child: MultiBlocProvider(
+    //     providers: [
+    //       BlocProvider<WorkoutBloc>(
+    //         create: (context) => WorkoutBloc(
+    //           context.read<WorkoutRepository>(),
+    //         ),
+    //       ),
+    //     ],
+    //     child: MaterialApp.router(
+    //       routerConfig: router,
+    //       theme: FlexThemeData.light(scheme: FlexScheme.redWine),
+    //     ),
+    //   ),
+    // );
   }
 }
