@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:workout_tracker/models/days_of_week.dart';
 
 class Workout {
@@ -8,16 +9,22 @@ class Workout {
   String audioName;
   int kcal;
   Set<DaysOfWeek>? workoutDays;
+  String? uid; //그룹운동에선 null
+  DateTime createdAt;
 
-  Workout(
-      {this.id,
-      required this.name,
-      required this.minutes,
-      required this.imageName,
-      required this.audioName,
-      required this.kcal,
-      this.workoutDays});
+  Workout({
+    this.id,
+    required this.name,
+    required this.minutes,
+    required this.imageName,
+    required this.audioName,
+    required this.kcal,
+    this.workoutDays,
+    this.uid,
+    createdAt
+  }) : createdAt = createdAt ?? DateTime.now(); //createdAt이 null일때 현재시간으로 디폴트값 설정
 
+  //firebase가 map형태로 데이터를 받기 때문에
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -25,7 +32,8 @@ class Workout {
       'kcal': kcal,
       'minutes': minutes,
       'imageName': imageName,
-      'workoutDays': workoutDays?.map((day) => day.index).toList()
+      'workoutDays': workoutDays?.map((day) => day.index).toList(),
+      'uid': uid,
     };
   }
 
