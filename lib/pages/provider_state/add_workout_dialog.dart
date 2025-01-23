@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_tracker/logic/provider/workout_provider.dart';
 import 'package:workout_tracker/models/workout.dart';
+import 'package:workout_tracker/show_snackbar.dart';
 
 class AddWorkoutDialog extends StatelessWidget {
   AddWorkoutDialog({super.key});
@@ -111,7 +112,7 @@ class AddWorkoutDialog extends StatelessWidget {
                     color: Theme.of(context).primaryColor),
                 child: Center(
                   child: TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       print(newWorkoutTitle);
                       print(newWorkoutImageUrl);
                       print(newWorkoutAudioUrl);
@@ -123,8 +124,13 @@ class AddWorkoutDialog extends StatelessWidget {
                           imageName: newWorkoutImageUrl!,
                           audioName: newWorkoutAudioUrl!,
                           kcal: newWorkoutKcal);
-                      WorkoutProvider workoutProvider = Provider.of<WorkoutProvider>(context, listen: false);
-                      workoutProvider.addWorkout(workoutNew);
+                      WorkoutProvider workoutProvider =
+                          Provider.of<WorkoutProvider>(context, listen: false);
+                      try {
+                        await workoutProvider.addWorkout(workoutNew);
+                      } catch (e) {
+                        showSnackBar(context, e.toString());
+                      }
                       context.pop();
                       //gorouter에서 Navigator.pop(context); 과 같음
                     },

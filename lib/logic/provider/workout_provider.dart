@@ -1,10 +1,14 @@
-import 'dart:collection';
-import 'package:flutter/material.dart'; //ChangeNotifier 상속받기 위해
+import 'dart:collection'; //ChangeNotifier 상속받기 위해
+import 'package:flutter/material.dart';
 import 'package:workout_tracker/models/days_of_week.dart';
 import 'package:workout_tracker/models/workout.dart';
+import 'package:workout_tracker/services/firebase_auth_service.dart';
 import 'package:workout_tracker/services/firestore_service.dart';
 
 class WorkoutProvider extends ChangeNotifier {
+  FirebaseAuthService _auth = FirebaseAuthService();
+  FirebaseService _fs = FirebaseService();
+
   List<Workout> _workouts = [
     Workout(
       name: '스쿼트',
@@ -31,12 +35,20 @@ class WorkoutProvider extends ChangeNotifier {
     return UnmodifiableListView(_workouts); //List를 수정할 수 없도록 설정
   }
 
-  void addWorkout(Workout workout) {
-    final _firestoreService = FirebaseService();
-    _firestoreService.createWorkout(workout);
+  Future<void> getDoc() async {
+    await _fs.readWorkout('H9O1cTcgjcho7sTqSBHt');
+  }
 
-    _workouts.add(workout);
-    notifyListeners(); //리스너에게 알려줌 (화면갱신)
+  Future<void> addWorkout(Workout workout) async {
+    final _firestoreService = FirebaseService();
+    workout.uid = _auth.user?.uid;
+    try {
+      await _firestoreService.createWorkout(workout);
+      _workouts.add(workout);
+      notifyListeners(); //리스너에게 알려줌 (화면갱신)
+    } catch (e) {
+      rethrow;
+    }
   }
 
   void deleteWorkout(int index) {
@@ -47,7 +59,8 @@ class WorkoutProvider extends ChangeNotifier {
   //update workout
   void updateWorkoutDays(
       {required List<bool> isSelected, required int workoutIndex}) {
-    workouts[workoutIndex].workoutDays = changeIsSelectedToWorkoutDays(isSelected);
+    workouts[workoutIndex].workoutDays =
+        changeIsSelectedToWorkoutDays(isSelected);
   }
 
   //change list to set

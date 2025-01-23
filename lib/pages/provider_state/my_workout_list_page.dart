@@ -14,9 +14,18 @@ class MyWorkoutListPage extends StatefulWidget {
 
   @override
   State<MyWorkoutListPage> createState() => _MyWorkoutListPageState();
+
 }
 
 class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //provicer에서 만든 getDoc
+    Provider.of<WorkoutProvider>(context, listen: false).getDoc();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
