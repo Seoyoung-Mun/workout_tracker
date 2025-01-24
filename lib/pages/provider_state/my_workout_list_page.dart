@@ -6,6 +6,7 @@ import 'package:workout_tracker/pages/provider_state/add_workout_dialog.dart';
 import 'package:workout_tracker/models/workout.dart';
 import 'package:workout_tracker/logic/workout_manager.dart';
 import 'package:workout_tracker/pages/provider_state/workout_tile.dart';
+import 'package:workout_tracker/show_snackbar.dart';
 
 class MyWorkoutListPage extends StatefulWidget {
   MyWorkoutListPage({super.key}) {
@@ -14,7 +15,6 @@ class MyWorkoutListPage extends StatefulWidget {
 
   @override
   State<MyWorkoutListPage> createState() => _MyWorkoutListPageState();
-
 }
 
 class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
@@ -23,8 +23,13 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
     // TODO: implement initState
     super.initState();
     //provicer에서 만든 getDoc
-    Provider.of<WorkoutProvider>(context, listen: false).getDoc();
+    Provider.of<WorkoutProvider>(context, listen: false)
+        .fetchAllWorkouts()
+        .catchError((e) {
+      showSnackBar(context, e.toString());
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +40,11 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
       body:
           Consumer<WorkoutProvider>(builder: (context, workoutProvider, child) {
         List<Workout> workouts = workoutProvider.workouts;
+        if (workouts.isEmpty) {
+          return Center(
+            child: Text('등록된 운동이 없습니다.'),
+          );
+        }
         return ListView.builder(
           itemCount: workouts.length,
           itemBuilder: (context, index) {

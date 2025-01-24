@@ -66,6 +66,7 @@ class Workout {
       workoutDays: dayOfWeek,
     );
   }
+//cf. withConverter로 타입전환 할 수도 있음
 
   @override
   String toString() {

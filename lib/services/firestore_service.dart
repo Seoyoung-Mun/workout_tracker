@@ -21,6 +21,10 @@ class FirebaseService {
     final documentSnapshot = await _workoutsCollection
         .doc(workoutId)
         .get(); //workoutId를 가진 document를 가져오는 것
+
+    //documentSnapshot은 exists로 document가 존재하는지 확인할 수 있음
+    //querySnapshot은 존재하지 않을 시, empty라도 List에 담아서 보냄
+    //queryDocumentSnapshot은 data()로 document를 가져올 수 있음
     if (!documentSnapshot.exists) throw Exception('workout not found');
     final mapData = documentSnapshot.data()!;
 
@@ -31,8 +35,9 @@ class FirebaseService {
   Future<List<Workout>> fetchAllWorkouts({required String uid}) async {
     final _workoutsCollection = _fs.collection('workouts');
     try {
-      final querySnapshot =
-          await _workoutsCollection.where('uid', isEqualTo: uid).get();
+      final querySnapshot = await _workoutsCollection
+              .where('uid', isEqualTo: uid) //uid가 일치하는 workout들을 가져오는 것
+              .get();
       final queryDocumentSnapshotList = querySnapshot.docs; //List타입
       List<Workout> returnData = [];
       for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
@@ -41,6 +46,7 @@ class FirebaseService {
         Workout w = Workout.fromMap(mapData);
         returnData.add(w);
       }
+
       return returnData;
     } catch (e) {
       throw Exception('fetch error');
@@ -52,7 +58,22 @@ class FirebaseService {
 //     .toList();
   }
 
-  Future<void> updateWorkout(Workout workout) async {}
+  Future<void> updateWorkout(Workout workout) async {
+    final _workoutsCollection = _fs.collection('workouts');
+    //workoutId를 document의 id로 사용하므로, workoutId를 지정하지 않아도 됨
+    try {
+      await _workoutsCollection.doc(workout.id).update(workout.toMap());
+    } catch (e) {
+      throw Exception('FirebaseService.updateWorkout: $e');
+    }
+  }
 
-  Future<void> deleteWorkout(String workoutId) async {}
+  Future<void> deleteWorkout(String workoutId) async {
+    final _workoutsCollection = _fs.collection('workouts');
+    try {
+      await _workoutsCollection.doc(workoutId).delete();
+    } catch (e) {
+      throw Exception('FirebaseService.delete error: $e');
+    }
+  }
 }

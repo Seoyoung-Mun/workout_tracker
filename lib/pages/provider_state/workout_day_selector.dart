@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_tracker/logic/provider/workout_provider.dart';
 import 'package:workout_tracker/models/days_of_week.dart';
+import 'package:workout_tracker/show_snackbar.dart';
 
 class WorkoutDaySelector extends StatefulWidget {
   final int workoutIndex;
@@ -19,8 +20,12 @@ class _WorkoutDaySelectorState extends State<WorkoutDaySelector> {
     isSelected[index] = !isSelected[index];
     //함수 호출부에 widget.을 붙여야 하는 이유는 StatefulWidget의 멤버 변수에 접근하기 위해서
     // widget.updateWorkoutDays(changeIsSelectedToWorkoutDays(isSelected));
-    Provider.of<WorkoutProvider>(context, listen: false).updateWorkoutDays(
-        isSelected: isSelected, workoutIndex: widget.workoutIndex);
+    try {
+      Provider.of<WorkoutProvider>(context, listen: false).updateWorkoutDays(
+          isSelected: isSelected, workoutIndex: widget.workoutIndex);
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
   }
 
   @override
