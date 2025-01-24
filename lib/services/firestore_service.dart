@@ -61,6 +61,7 @@ class FirebaseService {
 
       return returnData;
     } catch (e) {
+      print(e.toString());
       throw Exception('fetch error');
     }
 
