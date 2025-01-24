@@ -12,17 +12,17 @@ class Workout {
   String? uid; //그룹운동에선 null
   DateTime createdAt;
 
-  Workout(
-      {this.id,
-      required this.name,
-      required this.minutes,
-      required this.imageName,
-      required this.audioName,
-      required this.kcal,
-      this.workoutDays,
-      this.uid,
-      createdAt})
-      : createdAt =
+  Workout({
+    this.id,
+    required this.name,
+    required this.minutes,
+    required this.imageName,
+    required this.audioName,
+    required this.kcal,
+    this.workoutDays,
+    this.uid,
+    createdAt,
+  }) : createdAt =
             createdAt ?? DateTime.now(); //createdAt이 null일때 현재시간으로 디폴트값 설정
 
   //firebase가 map형태로 데이터를 받기 때문에
@@ -43,7 +43,6 @@ class Workout {
   //map형태로 받은 데이터를 Workout 형태로 변환 변환
   // fromMpa의 역할은 map형태로 받은 데이터를 Workout 형태로 변환하는 것
   factory Workout.fromMap(Map<String, dynamic> mapData) {
-
     //mapData['createdAt']는 Timestamp 형태이기 때문에 DateTime으로 변환
     DateTime createAt = DateTime.fromMillisecondsSinceEpoch(
         mapData['createdAt'].seconds * 1000);
@@ -61,7 +60,7 @@ class Workout {
       name: mapData['name'],
       audioName: mapData['audioName'],
       imageName: mapData['imageName'],
-      kcal: mapData['kacl'],
+      kcal: mapData['kcal'],
       minutes: mapData['minutes'],
       createdAt: createAt,
       workoutDays: dayOfWeek,
@@ -72,7 +71,7 @@ class Workout {
   String toString() {
     //디버깅용 toString
     // TODO: implement toString
-    return 'name:${name}, minutes:${minutes}, imageName:${imageName}, audioName:${audioName}, kcal:${kcal}';
+    return 'name:${name}, minutes:${minutes}, imageName:${imageName}, audioName:${audioName}, kcal:${kcal}, workoutDays:${workoutDays}, createdAt:${createdAt}, uid:${uid}';
     // return super.toString();
   }
 }

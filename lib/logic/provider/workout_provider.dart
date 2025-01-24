@@ -7,7 +7,7 @@ import 'package:workout_tracker/services/firestore_service.dart';
 
 class WorkoutProvider extends ChangeNotifier {
   FirebaseAuthService _auth = FirebaseAuthService();
-  FirebaseService _fs = FirebaseService();
+  final _firestoreService = FirebaseService();
 
   List<Workout> _workouts = [
     Workout(
@@ -36,11 +36,11 @@ class WorkoutProvider extends ChangeNotifier {
   }
 
   Future<void> getDoc() async {
-    await _fs.readWorkout('H9O1cTcgjcho7sTqSBHt');
+    final Workout getWorkout = await _firestoreService.readWorkout('H9O1cTcgjcho7sTqSBHt');
+    print('getDoc : ${getWorkout}');
   }
 
   Future<void> addWorkout(Workout workout) async {
-    final _firestoreService = FirebaseService();
     workout.uid = _auth.user?.uid;
     try {
       await _firestoreService.createWorkout(workout);

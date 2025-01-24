@@ -24,7 +24,6 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
     super.initState();
     //provicer에서 만든 getDoc
     Provider.of<WorkoutProvider>(context, listen: false).getDoc();
-
   }
   @override
   Widget build(BuildContext context) {
