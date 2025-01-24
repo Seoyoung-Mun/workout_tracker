@@ -8,6 +8,8 @@ import 'package:workout_tracker/logic/workout_manager.dart';
 import 'package:workout_tracker/pages/provider_state/workout_tile.dart';
 import 'package:workout_tracker/show_snackbar.dart';
 
+import '../../sample_data.dart';
+
 class MyWorkoutListPage extends StatefulWidget {
   MyWorkoutListPage({super.key}) {
     WorkoutManager.increaseMonthlyWorkoutCount();
@@ -18,10 +20,21 @@ class MyWorkoutListPage extends StatefulWidget {
 }
 
 class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
+
+  final ScrollController _scrollController = ScrollController();
+  void _scrollListener(){
+    if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent){
+      Provider.of<WorkoutProvider>(context, listen: false).fetchAllWorkouts().catchError((e){
+        showSnackBar(context, e.toString());
+      });
+    }
+    }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    SampleData.insertSampleData();
     //provicer에서 만든 getDoc
     Provider.of<WorkoutProvider>(context, listen: false)
         .fetchAllWorkouts()
@@ -46,6 +59,7 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
           );
         }
         return ListView.builder(
+          controller: _scrollController,
           itemCount: workouts.length,
           itemBuilder: (context, index) {
             return WorkoutTile(

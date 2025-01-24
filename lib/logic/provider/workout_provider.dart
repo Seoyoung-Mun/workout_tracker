@@ -38,7 +38,10 @@ class WorkoutProvider extends ChangeNotifier {
   Future<void> fetchAllWorkouts() async {
     if (_auth.user == null) return; //user가 null일 경우에는 아무것도 하지 않음(null safety)
     final List<Workout> fetchAllWorkouts =
-        await _firestoreService.fetchAllWorkouts(uid: _auth.user!.uid);
+        await _firestoreService.fetchAllWorkouts(
+      uid: _auth.user!.uid,
+      lastWorkout: _workouts.lastOrNull,
+    );
     _workouts.addAll(fetchAllWorkouts);
     notifyListeners(); //리스너에게 알림
   }

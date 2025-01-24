@@ -32,12 +32,24 @@ class FirebaseService {
   }
 
   //workout을 전부 가져오는 것
-  Future<List<Workout>> fetchAllWorkouts({required String uid}) async {
+  Future<List<Workout>> fetchAllWorkouts(
+      {required String uid, Workout? lastWorkout}) async {
     final _workoutsCollection = _fs.collection('workouts');
     try {
-      final querySnapshot = await _workoutsCollection
-              .where('uid', isEqualTo: uid) //uid가 일치하는 workout들을 가져오는 것
-              .get();
+      //pagination을 위한 코드
+      Query<Map<String, dynamic>> query = await _workoutsCollection
+          .where('uid', isEqualTo: uid) //uid가 일치하는 workout들을 가져오는 것
+          .orderBy('createdAt') //최신순으로 정렬
+          .orderBy('id') //id순으로 정렬
+          .limit(5); //
+      if (lastWorkout != null) { //lastWorkout이 null이 아니라면
+        //lastWorkout의 createdAt과 id를 기준으로 이후의 workout들을 가져오도록 설정
+        //startAfter를 사용하여 이전의 데이터를 가져올 수 있도록 설정
+        query = query.startAfter( //cursor를 이용
+            [lastWorkout.createdAt.millisecondsSinceEpoch, lastWorkout.id]);
+      }
+      final QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await query.get();
       final queryDocumentSnapshotList = querySnapshot.docs; //List타입
       List<Workout> returnData = [];
       for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
