@@ -20,12 +20,21 @@ class _WorkoutDaySelectorState extends State<WorkoutDaySelector> {
     isSelected[index] = !isSelected[index];
     //함수 호출부에 widget.을 붙여야 하는 이유는 StatefulWidget의 멤버 변수에 접근하기 위해서
     // widget.updateWorkoutDays(changeIsSelectedToWorkoutDays(isSelected));
-    try {
-      Provider.of<WorkoutProvider>(context, listen: false).updateWorkoutDays(
-          isSelected: isSelected, workoutIndex: widget.workoutIndex);
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
+    // try {
+    //   Provider.of<WorkoutProvider>(context, listen: false).updateWorkoutDays(
+    //       isSelected: isSelected, workoutIndex: widget.workoutIndex);
+    // } catch (e) {
+    //   showSnackBar(context, e.toString());
+    // }
+    WorkoutProvider workoutProvider =
+        Provider.of<WorkoutProvider>(context, listen: false);
+    workoutProvider.addListener(() {
+      //addListener는 notifyListeners를 통해 변경을 감지한 후 동작
+      if (workoutProvider.errorState.$1) {
+        showSnackBar(context, workoutProvider.errorState.$2!);
+        workoutProvider.resetErrorState(); //에러상태 초기화
+      }
+    });
   }
 
   @override

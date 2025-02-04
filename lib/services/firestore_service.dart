@@ -41,12 +41,15 @@ class FirebaseService {
           .where('uid', isEqualTo: uid) //uid가 일치하는 workout들을 가져오는 것
           .orderBy('createdAt') //최신순으로 정렬
           .orderBy('id') //id순으로 정렬
-          .limit(5); //
+          .limit(5); //5개의 workout만 가져오도록 설정
+
       if (lastWorkout != null) { //lastWorkout이 null이 아니라면
         //lastWorkout의 createdAt과 id를 기준으로 이후의 workout들을 가져오도록 설정
         //startAfter를 사용하여 이전의 데이터를 가져올 수 있도록 설정
         query = query.startAfter( //cursor를 이용
             [lastWorkout.createdAt.millisecondsSinceEpoch, lastWorkout.id]);
+        //orderBy에 포함된 내용들로 구성된 cursor이기 때문에 lastWorkout의 createdAt과 id를 기준으로 이후의 workout들을 가져오도록 설정
+        print('자 여기가 커서입니다. : ${lastWorkout.createdAt.millisecondsSinceEpoch} + ${lastWorkout.id}');
       }
       final QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await query.get();
@@ -54,8 +57,8 @@ class FirebaseService {
       List<Workout> returnData = [];
       for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
           in queryDocumentSnapshotList) {
-        final mapData = doc.data();
-        Workout w = Workout.fromMap(mapData);
+        final mapData = doc.data(); //Map타입
+        Workout w = Workout.fromMap(mapData); //Workout타입으로 전환
         returnData.add(w);
       }
 

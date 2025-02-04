@@ -126,11 +126,18 @@ class AddWorkoutDialog extends StatelessWidget {
                           kcal: newWorkoutKcal);
                       WorkoutProvider workoutProvider =
                           Provider.of<WorkoutProvider>(context, listen: false);
-                      try {
-                        await workoutProvider.addWorkout(workoutNew);
-                      } catch (e) {
-                        showSnackBar(context, e.toString());
-                      }
+                      await workoutProvider.addWorkout(workoutNew);
+                      workoutProvider.addListener(() { //addListener는 notifyListeners를 통해 변경을 감지한 후 동작
+                        if (workoutProvider.errorState.$1) {
+                          showSnackBar(context, workoutProvider.errorState.$2!);
+                          workoutProvider.resetErrorState();//에러상태 초기화
+                        }
+                      });
+                      // try {
+                      //   await workoutProvider.addWorkout(workoutNew);
+                      // } catch (e) {
+                      //   showSnackBar(context, e.toString());
+                      // }
                       context.pop();
                       //gorouter에서 Navigator.pop(context); 과 같음
                     },

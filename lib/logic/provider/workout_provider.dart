@@ -30,6 +30,16 @@ class WorkoutProvider extends ChangeNotifier {
     // ),
   ];
 
+  //[] => list
+  //{} => map
+  //() => record
+  //서비스에서 발생한 에러를 로직단에서 가공하기 위한 변수 (Record타입을 활용하여 message와 errorflag를 분리)
+  (bool errorFlag, String? errorMessage) errorState = (false, null);
+
+  void resetErrorState() {
+    errorState = (false, null);
+  }
+
   List<Workout> get workouts {
     //getter를 정의
     return UnmodifiableListView(_workouts); //List를 수정할 수 없도록 설정
@@ -37,12 +47,16 @@ class WorkoutProvider extends ChangeNotifier {
 
   Future<void> fetchAllWorkouts() async {
     if (_auth.user == null) return; //user가 null일 경우에는 아무것도 하지 않음(null safety)
-    final List<Workout> fetchAllWorkouts =
-        await _firestoreService.fetchAllWorkouts(
-      uid: _auth.user!.uid,
-      lastWorkout: _workouts.lastOrNull,
-    );
-    _workouts.addAll(fetchAllWorkouts);
+    try {
+      final List<Workout> fetchAllWorkouts =
+          await _firestoreService.fetchAllWorkouts(
+        uid: _auth.user!.uid,
+        lastWorkout: _workouts.lastOrNull,
+      );
+      _workouts.addAll(fetchAllWorkouts);
+    } catch (e) {
+      errorState = (true, e.toString());
+    }
     notifyListeners(); //리스너에게 알림
   }
 
@@ -57,16 +71,22 @@ class WorkoutProvider extends ChangeNotifier {
     try {
       await _firestoreService.createWorkout(workout);
       _workouts.add(workout);
-      notifyListeners(); //리스너에게 알려줌 (화면갱신)
     } catch (e) {
-      rethrow;
+      print('logi layer error');
+      // rethrow;
+      errorState = (true, e.toString()); //에러상태 변수에 에러상태와 메세지를 담음
     }
+    notifyListeners(); //리스너에게 알려줌 (화면갱신)
   }
 
   void deleteWorkout(int index) {
     if (_workouts[index] == null) return;
-    _firestoreService.deleteWorkout(_workouts[index].id!);
-    _workouts.removeAt(index);
+    try {
+      _firestoreService.deleteWorkout(_workouts[index].id!);
+      _workouts.removeAt(index);
+    } catch (e) {
+      errorState = (true, e.toString());
+    }
     notifyListeners();
   }
 
@@ -75,9 +95,13 @@ class WorkoutProvider extends ChangeNotifier {
     required List<bool> isSelected,
     required int workoutIndex,
   }) {
-    workouts[workoutIndex].workoutDays =
-        changeIsSelectedToWorkoutDays(isSelected);
-    _firestoreService.updateWorkout(workouts[workoutIndex]);
+    try {
+      workouts[workoutIndex].workoutDays =
+          changeIsSelectedToWorkoutDays(isSelected);
+      _firestoreService.updateWorkout(workouts[workoutIndex]);
+    } catch (e) {
+      errorState = (true, e.toString());
+    }
   }
 
   //change list to set

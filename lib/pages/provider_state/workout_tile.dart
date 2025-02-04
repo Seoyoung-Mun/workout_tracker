@@ -48,14 +48,25 @@ class WorkoutTile extends StatelessWidget {
               ),
               IconButton(
                   onPressed: () {
+                    // WorkoutProvider workoutProvider =
+                    //     Provider.of<WorkoutProvider>(context,
+                    //         listen: false); //value에 접근하려면 true, 함수에 접근하려면 false
+                    // try {
+                    //   workoutProvider.deleteWorkout(index);
+                    // } catch (e) {
+                    //   showSnackBar(context, e.toString());
+                    // }
+
                     WorkoutProvider workoutProvider =
-                        Provider.of<WorkoutProvider>(context,
-                            listen: false); //value에 접근하려면 true, 함수에 접근하려면 false
-                    try {
-                      workoutProvider.deleteWorkout(index);
-                    } catch (e) {
-                      showSnackBar(context, e.toString());
-                    }
+                        Provider.of<WorkoutProvider>(context, listen: false);
+                    workoutProvider.deleteWorkout(index);
+                    workoutProvider.addListener(() {
+                      //addListener는 notifyListeners를 통해 변경을 감지한 후 동작
+                      if (workoutProvider.errorState.$1) {
+                        showSnackBar(context, workoutProvider.errorState.$2!);
+                        workoutProvider.resetErrorState(); //에러상태 초기화
+                      }
+                    });
                   },
                   icon: const Icon(Icons.delete_outline, size: 22))
             ],
