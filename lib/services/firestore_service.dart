@@ -49,7 +49,6 @@ class FirebaseService {
         query = query.startAfter( //cursor를 이용
             [lastWorkout.createdAt.millisecondsSinceEpoch, lastWorkout.id]);
         //orderBy에 포함된 내용들로 구성된 cursor이기 때문에 lastWorkout의 createdAt과 id를 기준으로 이후의 workout들을 가져오도록 설정
-        print('자 여기가 커서입니다. : ${lastWorkout.createdAt.millisecondsSinceEpoch} + ${lastWorkout.id}');
       }
       final QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await query.get();

@@ -25,21 +25,10 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
   void _scrollListener() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-      //   Provider.of<WorkoutProvider>(context, listen: false)
-      //       .fetchAllWorkouts()
-      //       .catchError((e) {
-      //     showSnackBar(context, e.toString());
-      //   });
-      // }
-      WorkoutProvider workoutProvider =
-      Provider.of<WorkoutProvider>(context, listen: false);
-      workoutProvider.fetchAllWorkouts();
-      workoutProvider
-          .addListener(() { //addListener는 notifyListeners를 통해 변경을 감지한 후 동작
-        if (workoutProvider.errorState.$1) {
-          showSnackBar(context, workoutProvider.errorState.$2!);
-          workoutProvider.resetErrorState(); //에러상태 초기화
-        }
+      Provider.of<WorkoutProvider>(context, listen: false)
+          .fetchAllWorkouts()
+          .catchError((e) {
+        showSnackBar(context, e.toString());
       });
     }
   }
@@ -51,18 +40,16 @@ class _MyWorkoutListPageState extends State<MyWorkoutListPage> {
     _scrollController.addListener(_scrollListener);
     // SampleData.insertSampleData();
     //provicer에서 만든 getDoc
-    // Provider.of<WorkoutProvider>(context, listen: false)
-    //     .fetchAllWorkouts()
-    //     .catchError((e) {
-    //   showSnackBar(context, e.toString());
-    // });
+    Provider.of<WorkoutProvider>(context, listen: false)
+        .fetchAllWorkouts()
+        .catchError((e) {
+      showSnackBar(context, e.toString());
+    });
     WorkoutProvider workoutProvider =
         Provider.of<WorkoutProvider>(context, listen: false);
-    workoutProvider.fetchAllWorkouts(); //provider에서 만든 메소드를 호출하여 데이터를 가져옴
     workoutProvider.addListener(() { //addListener는 notifyListeners를 통해 변경을 감지한 후 동작
       if (workoutProvider.errorState.$1) {
         showSnackBar(context, workoutProvider.errorState.$2!);
-        workoutProvider.resetErrorState();//에러상태 초기화
       }
     });
   }

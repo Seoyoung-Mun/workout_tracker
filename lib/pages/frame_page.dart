@@ -20,6 +20,11 @@ class FramePage extends StatelessWidget {
             label: 'Home',
           ),
           NavigationDestination(
+            selectedIcon: Icon(Icons.article),
+            icon: Icon(Icons.article_outlined),
+            label: 'Article',
+          ),
+          NavigationDestination(
             selectedIcon: Icon(Icons.settings),
             icon: Icon(Icons.settings_outlined),
             label: 'Settings',

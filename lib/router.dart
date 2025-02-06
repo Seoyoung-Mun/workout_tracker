@@ -7,6 +7,7 @@ import 'package:workout_tracker/pages/frame_page.dart';
 import 'package:workout_tracker/pages/provider_state/my_workout_list_page.dart';
 // import 'package:workout_tracker/pages/bloc_state/my_workout_list_page.dart';
 import 'package:workout_tracker/pages/profile_page.dart';
+import 'package:workout_tracker/pages/provider_state/workout_article_list_page.dart';
 import 'package:workout_tracker/pages/reset_password_page.dart';
 import 'package:workout_tracker/pages/workout_home_page.dart';
 import 'package:workout_tracker/pages/workout_list_page.dart';
@@ -20,6 +21,8 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _homeNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'home');
+final GlobalKey<NavigatorState> _articleNavigatorKey =
+GlobalKey<NavigatorState>(debugLabel: 'article');
 final GlobalKey<NavigatorState> _settingsNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'setting');
 
@@ -100,6 +103,17 @@ final GoRouter router = GoRouter(
                 ),
               ],
             ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _articleNavigatorKey,
+          routes: [
+            GoRoute(
+              path: '/articles',
+              builder: (context, state) {
+                return WorkoutArticleListPage();
+              },
+            )
           ],
         ),
         StatefulShellBranch(
