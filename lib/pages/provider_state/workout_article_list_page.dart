@@ -73,7 +73,9 @@ class _WorkoutArticleListPageState extends State<WorkoutArticleListPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getArticleData();
+    getArticleData().then((_) { //then은 getArticleData가 끝나면 실행해주는 함수
+      setState(() {}); //setState는 다시 실행해주는 함수
+    });
   }
 
   @override
@@ -83,7 +85,7 @@ class _WorkoutArticleListPageState extends State<WorkoutArticleListPage> {
           title: Text('Article'),
         ),
         body: Center(
-          child: Text('ariticle body'),
+          child: Text('${workoutArticle?.postTitle}'),
         ));
   }
 }
