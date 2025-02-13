@@ -12,6 +12,7 @@ class WorkoutArticleListPage extends StatefulWidget {
 }
 
 class _WorkoutArticleListPageState extends State<WorkoutArticleListPage> {
+  WorkoutArticle? workoutArticle; //instance variable
   Future<void> getArticleData() async {
     String requestUrl =
         'https://public-api.wordpress.com/rest/v1.1/read/tags/workout/posts';
@@ -54,7 +55,7 @@ class _WorkoutArticleListPageState extends State<WorkoutArticleListPage> {
         .map((tag) => tag['name'] as String)
         .toList();
 
-    WorkoutArticle workoutArticle = WorkoutArticle(
+    workoutArticle = WorkoutArticle(
       postTitle: postTitle,
       authorName: authorName,
       avatarURL: avatarURL,
