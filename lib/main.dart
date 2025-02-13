@@ -2,6 +2,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:workout_tracker/logic/provider/article_provider.dart';
 import 'package:workout_tracker/logic/provider/workout_provider.dart';
 import 'package:workout_tracker/logic/workout_bloc/workout_bloc.dart';
 import 'package:workout_tracker/repository/workout_repository.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => WorkoutProvider()),
+        ChangeNotifierProvider(create: (_) => ArticleProvider()),
       ],
       child: MaterialApp.router(
         routerConfig: router,
