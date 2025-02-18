@@ -11,7 +11,7 @@ class ArticleProvider extends ChangeNotifier {
   List<WorkoutArticle> get articles => UnmodifiableListView(_articles); //변경불가능한 리스트로 변환
 
   Future<void> getArticles() async {
-    _articles = await articleApiService.getArticleData();
+    _articles = await articleApiService.getArticleData(); //service에서 가져온 데이터를 저장
     notifyListeners(); //변경된 데이터를 사용하는 위젯들에게 알려줌
   }
 }
