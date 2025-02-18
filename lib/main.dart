@@ -1,7 +1,9 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:workout_tracker/constants.dart';
 import 'package:workout_tracker/logic/provider/article_provider.dart';
 import 'package:workout_tracker/logic/provider/workout_provider.dart';
 import 'package:workout_tracker/logic/workout_bloc/workout_bloc.dart';
@@ -21,8 +23,53 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  if (kIsWeb) {
+    runApp(MyAppForWeb());
+  } else {
+    runApp(MyApp());
+  }
+}
 
-  runApp(MyApp());
+class MyAppForWeb extends StatelessWidget {
+  const MyAppForWeb({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    //provider
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => WorkoutProvider()),
+        ChangeNotifierProvider(create: (_) => ArticleProvider()),
+      ],
+      child: MaterialApp.router(
+        routerConfig: router,
+        theme: FlexThemeData.light(scheme: FlexScheme.redWine),
+        builder: (context, child) {
+          return LayoutBuilder(builder: (context, constraints) {
+            double width = (constraints.maxWidth > kMaxScreenWidth)
+                ? kMaxScreenWidth
+                : constraints.maxWidth;
+            double height = (constraints.maxHeight > kMinScreenHeight)
+                ? kMinScreenHeight
+                : constraints.maxHeight;
+            return Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: width,
+                      height: height,
+                      child: child,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          });
+        },
+      ),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -49,7 +96,6 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp.router(
         routerConfig: router,
-
         theme: FlexThemeData.light(scheme: FlexScheme.redWine),
       ),
     );
