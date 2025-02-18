@@ -1,22 +1,18 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_tracker/constants.dart';
 import 'package:workout_tracker/logic/provider/article_provider.dart';
 import 'package:workout_tracker/logic/provider/workout_provider.dart';
-import 'package:workout_tracker/logic/workout_bloc/workout_bloc.dart';
-import 'package:workout_tracker/repository/workout_repository.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:workout_tracker/logic/workout_bloc/workout_bloc.dart';
+// import 'package:workout_tracker/repository/workout_repository.dart';
 import 'package:workout_tracker/router.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:workout_tracker/services/fake_db.dart';
 import 'firebase_options.dart';
 
-import 'package:workout_tracker/pages/landing_page.dart';
-import 'package:workout_tracker/pages/workout_list_page.dart';
-import 'package:workout_tracker/pages/workout_guide_page.dart';
-import 'package:workout_tracker/pages/workout_home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //main함수를 비동기로 수행할 때
@@ -24,6 +20,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   if (kIsWeb) {
+    usePathUrlStrategy();
     runApp(MyAppForWeb());
   } else {
     runApp(MyApp());
